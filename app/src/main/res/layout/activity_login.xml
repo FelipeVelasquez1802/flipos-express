@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PanelTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.views.activities.LoginActivity">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flipos_icon" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/ivIcon"
+        android:autofillHints="@string/username"
+        android:hint="@string/username"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/etUsername"
+        android:autofillHints="@string/username"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btLogin"
+        style="@style/ButtonTheme"
+        android:layout_below="@id/etPassword"
+        android:onClick="onClick"
+        android:text="@string/singin" />
+
+</RelativeLayout>

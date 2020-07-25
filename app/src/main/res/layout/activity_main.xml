@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PanelTheme"
+    tools:context=".presentation.views.activities.MainActivity">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/component_action_bar" />
+
+    <EditText
+        android:id="@+id/etCost"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/action_bar"
+        android:autofillHints="@string/image"
+        android:hint="@string/cost"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etOrderCost"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/etCost"
+        android:autofillHints="@string/image"
+        android:hint="@string/order_cost"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        style="@style/EditTextTheme"
+        android:layout_below="@id/etOrderCost"
+        android:autofillHints="@string/image"
+        android:hint="@string/description"
+        android:inputType="textMultiLine|textCapWords" />
+
+    <Button
+        android:id="@+id/btSave"
+        style="@style/ButtonTheme"
+        android:layout_below="@id/etDescription"
+        android:onClick="onClick"
+        android:text="@string/save" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/header_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btSave" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/include" />
+
+</RelativeLayout>

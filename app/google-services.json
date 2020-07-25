@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "800705632021",
+    "firebase_url": "https://flipos-express-villavicencio.firebaseio.com",
+    "project_id": "flipos-express-villavicencio",
+    "storage_bucket": "flipos-express-villavicencio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800705632021:android:ce1be7c0b764a299693b1c",
+        "android_client_info": {
+          "package_name": "com.infinitesolutions.fliposexpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800705632021-5vjqua149eo6is59c4dpas1rmokhg4ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQOrY0Tu4hnnqfaqnPtGt4_gInnfQaXC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800705632021-5vjqua149eo6is59c4dpas1rmokhg4ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
