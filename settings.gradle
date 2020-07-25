@@ -1,0 +1,2 @@
+rootProject.name='Flipos Express'
+include ':app'
