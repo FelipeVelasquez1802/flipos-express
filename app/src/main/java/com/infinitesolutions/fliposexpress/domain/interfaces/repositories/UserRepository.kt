@@ -2,9 +2,11 @@ package com.infinitesolutions.fliposexpress.domain.interfaces.repositories
 
 import com.infinitesolutions.fliposexpress.domain.entities.UserDomain
 import io.reactivex.Observable
+import io.reactivex.Single
 
 interface UserRepository {
     fun login(email: String?, password: String?): Observable<Any?>
+    fun logout(token: String): Observable<Any?>
     fun insert(user: UserDomain): Observable<UserDomain?>
     fun select(): Observable<ArrayList<UserDomain>>
     fun select(id: String): Observable<UserDomain?>

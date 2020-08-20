@@ -1,28 +1,25 @@
-package com.infinitesolutions.fliposexpress.data.api.firebase.repositories
+package com.infinitesolutions.fliposexpress.data.api.retrofit.repositories
 
-import com.google.firebase.auth.FirebaseAuth
-import com.infinitesolutions.fliposexpress.data.api.firebase.ApiFirebase
+import com.infinitesolutions.fliposexpress.data.api.retrofit.RetrofitConf
+import com.infinitesolutions.fliposexpress.data.api.retrofit.dao.UserDao
+import com.infinitesolutions.fliposexpress.data.entities.UserEntity
 import com.infinitesolutions.fliposexpress.domain.entities.UserDomain
 import com.infinitesolutions.fliposexpress.domain.interfaces.repositories.UserRepository
-import durdinapps.rxfirebase2.RxFirebaseAuth
+import com.infinitesolutions.fliposexpress.domain.tools.ObjectMapper
 import io.reactivex.Observable
 
 class UserRepositoryApiImpl : UserRepository {
 
-    private val apiFirebase: FirebaseAuth = ApiFirebase.auth()
+    private val userDao: UserDao = RetrofitConf.user()
 
     override fun login(email: String?, password: String?): Observable<Any?> {
-        return RxFirebaseAuth.signInWithEmailAndPassword(apiFirebase, email ?: "", password ?: "")
-            .flatMapObservable {
-                val user = it.user
-                var userDomain: UserDomain? = null
-                if (user != null) {
-                    userDomain = UserDomain(user.email)
-                    userDomain.id = user.uid
-                }
+        val user = UserEntity(username = email, password = password)
+        return ObjectMapper.toObservableAny(userDao.login(user))
+    }
 
-                Observable.just(userDomain)
-            }
+    override fun logout(token: String): Observable<Any?> {
+        val authorization = "Token $token"
+        return ObjectMapper.toObservableAny(userDao.logout(authorization))
     }
 
     override fun insert(user: UserDomain): Observable<UserDomain?> {
@@ -48,5 +45,4 @@ class UserRepositoryApiImpl : UserRepository {
     override fun update(user: UserDomain): Observable<UserDomain?> {
         TODO("Not yet implemented")
     }
-
 }

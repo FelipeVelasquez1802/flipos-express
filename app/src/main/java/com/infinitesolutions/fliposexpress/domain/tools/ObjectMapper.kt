@@ -58,13 +58,6 @@ class ObjectMapper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable { Observable.just(toUsersDomain(it as ArrayList<UserEntity>)) }
 
-        fun toObservableUserDomain(maybe: Maybe<AuthResult>): Observable<UserDomain?> =
-            maybe.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .flatMapObservable {
-                    val user = toUserDomain(it.user)
-                    Observable.just(user)
-                }
-
         fun toObservableBoolean(single: Single<Int>): Observable<Boolean> =
             single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,6 +72,11 @@ class ObjectMapper {
             single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable { Observable.just(toOrderDomain(it)) }
+
+        fun toObservableAny(single: Single<Any?>): Observable<Any?> =
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapObservable { Observable.just(it) }
 
 
         // Data

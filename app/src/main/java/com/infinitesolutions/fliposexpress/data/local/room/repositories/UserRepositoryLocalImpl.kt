@@ -8,6 +8,7 @@ import com.infinitesolutions.fliposexpress.domain.tools.Logs
 import com.infinitesolutions.fliposexpress.domain.tools.ObjectMapper
 import com.infinitesolutions.fliposexpress.presentation.views.activities.BaseApplication
 import io.reactivex.Observable
+import io.reactivex.Single
 
 class UserRepositoryLocalImpl : UserRepository {
 
@@ -15,6 +16,10 @@ class UserRepositoryLocalImpl : UserRepository {
         LocalRoomDatabase.getDatabase(BaseApplication.getContext()).userDao()
 
     override fun login(email: String?, password: String?): Observable<Any?> {
+        TODO("Not yet implemented")
+    }
+
+    override fun logout(token: String): Observable<Any?> {
         TODO("Not yet implemented")
     }
 

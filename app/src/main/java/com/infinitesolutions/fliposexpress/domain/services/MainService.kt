@@ -1,6 +1,5 @@
 package com.infinitesolutions.fliposexpress.domain.services
 
-import com.infinitesolutions.fliposexpress.data.api.firebase.repositories.OrderRepositoryApiImpl
 import com.infinitesolutions.fliposexpress.data.local.room.repositories.OrderRepositoryLocalImpl
 import com.infinitesolutions.fliposexpress.data.local.room.repositories.UserRepositoryLocalImpl
 import com.infinitesolutions.fliposexpress.domain.entities.OrderDomain
@@ -15,16 +14,8 @@ class MainService(private val presenter: Main.Presenter) : Main.Service {
 
     private val userRepository: UserRepository = UserRepositoryLocalImpl()
     private val orderRepository: OrderRepository = OrderRepositoryLocalImpl()
-    private val orderRepositoryApi: OrderRepository = OrderRepositoryApiImpl()
 
     override fun saveOrder(order: OrderDomain) {
-        val orderDisposable = orderRepositoryApi.update(order)
-            .subscribe({
-                Logs.showMessage(ObjectMapper.serializer(it ?: "This is empty"))
-            }, {
-                Logs.showMessage("Error")
-                Logs.showError(ObjectMapper.serializer(it ?: "Error"))
-            })
 //        val userDisposable = userRepository.selectFirst()
 //            .flatMap {
 //                val userId = it.id
