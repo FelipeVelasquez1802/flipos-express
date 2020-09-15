@@ -5,6 +5,7 @@ import java.util.*
 
 class Formats {
     companion object {
-        fun formatPrice(price: Double): NumberFormat = NumberFormat.getCurrencyInstance(Locale.US)
+        fun formatPrice(price: Double): String =
+            NumberFormat.getCurrencyInstance(Locale.US).format(price)
     }
 }

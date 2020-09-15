@@ -10,4 +10,11 @@
     <string name="date">Fecha</string>
     <string name="image">Image</string>
     <string name="loading">¡Ya casi acabamos!</string>
+    <string name="message_add">Aquí debes escribir los datos de tu domicilio para llevar un contról</string>
+    <string name="update">Actualizar</string>
+    <string name="edit">Editar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add_order">Añadir domicilio</string>
+    <string name="title_order_active">Domicilio actual</string>
+    <string name="finish">Finalizar</string>
 </resources>

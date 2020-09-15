@@ -1,6 +1,7 @@
 package com.infinitesolutions.fliposexpress.data.api.retrofit
 
 import com.infinitesolutions.fliposexpress.data.Constants.Companion.HOSTNAME
+import com.infinitesolutions.fliposexpress.data.api.retrofit.dao.OrderDao
 import com.infinitesolutions.fliposexpress.data.api.retrofit.dao.UserDao
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,5 +33,7 @@ class RetrofitConf {
         }
 
         fun user(): UserDao = getRetrofit().create(UserDao::class.java)
+
+        fun order(): OrderDao = getRetrofit().create(OrderDao::class.java)
     }
 }

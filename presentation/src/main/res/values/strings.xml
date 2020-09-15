@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Flipo\'s Express</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="singin">Iniciar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="cost">Costo del pedido</string>
+    <string name="order_cost">Costo del domicilio</string>
+    <string name="description">Descripción del pedido</string>
+    <string name="save">Guardar</string>
+    <string name="date">Fecha</string>
+    <string name="image">Image</string>
+    <string name="loading">¡Ya casi acabamos!</string>
+    <string name="message_add">Aquí debes escribir los datos de tu domicilio para llevar un contról</string>
+    <string name="update">Actualizar</string>
+    <string name="edit">Editar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add_order">Añadir domicilio</string>
+    <string name="title_order_active">Domicilio actual</string>
+    <string name="finish">Finalizar</string>
+    <string name="error">¡Error!</string>
+    <string name="ok">Listo</string>
+</resources>

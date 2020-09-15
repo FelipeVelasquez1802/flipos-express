@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import com.infinitesolutions.fliposexpress.data.Constants.Companion.NAME_DATABASE
 import com.infinitesolutions.fliposexpress.data.local.room.dao.OrderDao
 import com.infinitesolutions.fliposexpress.data.local.room.dao.UserDao
-import com.infinitesolutions.fliposexpress.data.local.room.entities.OrderEntity
-import com.infinitesolutions.fliposexpress.data.local.room.entities.UserEntity
+import com.infinitesolutions.fliposexpress.data.entities.OrderEntity
+import com.infinitesolutions.fliposexpress.data.entities.UserEntity
 
 @Database(
     entities = [UserEntity::class, OrderEntity::class],
-    version = 2,
+    version = 5,
     exportSchema = false
 )
 abstract class LocalRoomDatabase : RoomDatabase() {

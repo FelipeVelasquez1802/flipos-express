@@ -1,2 +1,8 @@
+include ':application'
+include ':presentation'
+include ':application'
+include ':infrastructure:deviceHardware'
+include ':infrastructure:dataAccess'
+include ':domain'
 rootProject.name='Flipos Express'
 include ':app'

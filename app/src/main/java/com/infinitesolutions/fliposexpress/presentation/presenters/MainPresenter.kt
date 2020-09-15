@@ -25,6 +25,30 @@ class MainPresenter(private val view: Main.View) : Main.Presenter {
     }
 
     override fun saveOrder(cost: String, orderCost: String, description: String) {
+        val flag = verifyFields(cost, orderCost, description)
+        if (flag) {
+            val order = OrderDomain(
+                cost = cost.toDouble(),
+                orderCost = orderCost.toDouble(),
+                description = description
+            )
+            service.saveOrder(order)
+        }
+    }
+
+    override fun updateOrder(cost: String, orderCost: String, description: String) {
+        val flag = verifyFields(cost, orderCost, description)
+        if (flag) {
+            val order = OrderDomain(
+                cost = cost.toDouble(),
+                orderCost = orderCost.toDouble(),
+                description = description
+            )
+            service.update(order)
+        }
+    }
+
+    private fun verifyFields(cost: String, orderCost: String, description: String): Boolean {
         var count = 0
         if (cost.isEmpty()) view.errorCost(errorField)
         else {
@@ -41,13 +65,6 @@ class MainPresenter(private val view: Main.View) : Main.Presenter {
             view.errorDescription()
             count++
         }
-        if (count == 3) {
-            val order = OrderDomain(
-                cost = cost.toDouble(),
-                orderCost = orderCost.toDouble(),
-                description = description
-            )
-            service.saveOrder(order)
-        }
+        return count == 3
     }
 }

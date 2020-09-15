@@ -1,5 +1,6 @@
 package com.infinitesolutions.fliposexpress.domain.services
 
+import com.infinitesolutions.fliposexpress.data.api.retrofit.repositories.OrderRepositoryApiImpl
 import com.infinitesolutions.fliposexpress.data.local.room.repositories.OrderRepositoryLocalImpl
 import com.infinitesolutions.fliposexpress.data.local.room.repositories.UserRepositoryLocalImpl
 import com.infinitesolutions.fliposexpress.domain.entities.OrderDomain
@@ -14,19 +15,23 @@ class MainService(private val presenter: Main.Presenter) : Main.Service {
 
     private val userRepository: UserRepository = UserRepositoryLocalImpl()
     private val orderRepository: OrderRepository = OrderRepositoryLocalImpl()
+    private val orderRepositoryApi: OrderRepository = OrderRepositoryApiImpl()
 
     override fun saveOrder(order: OrderDomain) {
-//        val userDisposable = userRepository.selectFirst()
-//            .flatMap {
-//                val userId = it.id
-//                if (userId == null) Observable.just(null)
-//                else {
-//                    order.userId = userId
-//                    orderRepository.insert(order)
-//                        .flatMap { orderRepository.selectByUser(userId) }
-//                }
-//            }
-//        select(userDisposable)
+        val userDisposable = userRepository.selectFirst()
+            .flatMap {
+                val userId = it.id
+                if (userId == null) Observable.just(null)
+                else {
+                    order.userId = userId
+                    orderRepositoryApi.insertAndShowAll(order)
+                }
+            }
+        select(userDisposable)
+    }
+
+    override fun update(order: OrderDomain) {
+        TODO("Not yet implemented")
     }
 
     override fun selectOrders() {
@@ -35,7 +40,7 @@ class MainService(private val presenter: Main.Presenter) : Main.Service {
                 val userId = it.id
                 if (userId == null) Observable.just(null)
                 else {
-                    orderRepository.selectByUser(userId)
+                    orderRepositoryApi.selectByUser(userId)
                 }
             }
         select(userDisposable)

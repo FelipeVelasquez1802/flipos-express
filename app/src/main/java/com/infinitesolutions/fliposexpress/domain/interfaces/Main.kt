@@ -19,10 +19,12 @@ interface Main {
         fun initial()
         fun setOrders(orders: ArrayList<OrderDomain>)
         fun saveOrder(cost: String, orderCost: String, description: String)
+        fun updateOrder(cost: String, orderCost: String, description: String)
     }
 
     interface Service {
         fun saveOrder(order: OrderDomain)
+        fun update(order: OrderDomain)
         fun selectOrders()
     }
 }

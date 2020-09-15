@@ -1,14 +1,14 @@
 package com.infinitesolutions.fliposexpress.domain.tools
 
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.infinitesolutions.fliposexpress.data.local.room.entities.OrderEntity
-import com.infinitesolutions.fliposexpress.data.local.room.entities.UserEntity
+import com.infinitesolutions.fliposexpress.data.entities.OrderEntity
+import com.infinitesolutions.fliposexpress.data.entities.TokenEntity
+import com.infinitesolutions.fliposexpress.data.entities.UserEntity
 import com.infinitesolutions.fliposexpress.domain.entities.OrderDomain
+import com.infinitesolutions.fliposexpress.domain.entities.TokenDomain
 import com.infinitesolutions.fliposexpress.domain.entities.UserDomain
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +19,10 @@ class ObjectMapper {
         private val gson: Gson = Gson()
         fun serializer(any: Any): String = gson.toJson(any)
 
-        // Domain
+        // toDomain
+
+        fun toTokenDomain(token: TokenEntity): TokenDomain =
+            gson.fromJson(serializer(token), TokenDomain::class.java)
 
         fun toUserDomain(user: UserEntity?): UserDomain? =
             if (user == null) null
@@ -63,11 +66,6 @@ class ObjectMapper {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable { Observable.just(it != 0) }
 
-        fun toObservableOrders(single: Single<List<OrderEntity>>): Observable<List<OrderDomain>> =
-            single.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMapObservable { Observable.just(toOrdersDomain(it)) }
-
         fun toObservableOrder(single: Single<OrderEntity?>): Observable<OrderDomain?> =
             single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,6 +78,18 @@ class ObjectMapper {
 
 
         // Data
+
+        fun toObservableTokenEntity(single: Single<TokenEntity>): Observable<TokenDomain> =
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { toTokenDomain(it) }
+                .flatMapObservable { Observable.just(it) }
+
+        fun toObservableOrders(single: Single<List<OrderEntity>>): Observable<List<OrderDomain>> =
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { toOrdersDomain(it) }
+                .flatMapObservable { Observable.just(it) }
 
         fun toUserEntity(user: UserDomain): UserEntity =
             gson.fromJson(serializer(user), UserEntity::class.java)

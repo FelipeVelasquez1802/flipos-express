@@ -2,26 +2,37 @@ package com.infinitesolutions.fliposexpress.presentation.views.activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.infinitesolutions.fliposexpress.R
 import com.infinitesolutions.fliposexpress.domain.entities.OrderDomain
 import com.infinitesolutions.fliposexpress.domain.interfaces.Main
+import com.infinitesolutions.fliposexpress.presentation.Constants.Companion.ADD
+import com.infinitesolutions.fliposexpress.presentation.Constants.Companion.ORDER
+import com.infinitesolutions.fliposexpress.presentation.Constants.Companion.TYPE
+import com.infinitesolutions.fliposexpress.presentation.Constants.Companion.UPDATE
 import com.infinitesolutions.fliposexpress.presentation.presenters.MainPresenter
+import com.infinitesolutions.fliposexpress.presentation.views.adapters.OrderActiveAdapter
 import com.infinitesolutions.fliposexpress.presentation.views.adapters.OrderAdapter
+import com.infinitesolutions.fliposexpress.presentation.views.dialog.OrderFormDialog
+import com.infinitesolutions.fliposexpress.presentation.views.dialog.OrderFormInterface
 
-class MainActivity : AppCompatActivity(), Main.View, View.OnClickListener {
+class MainActivity : AppCompatActivity(), Main.View, View.OnClickListener,
+    OrderAdapter.OnClickItem, OrderFormInterface {
 
-    private val presenter: Main.Presenter = MainPresenter(this)
-    private lateinit var cost: EditText
-    private lateinit var orderCost: EditText
-    private lateinit var description: EditText
-    private lateinit var recyclerView: RecyclerView
+    private val presenter: Main.Presenter by lazy { MainPresenter(this) }
+
+    private lateinit var ordersRecyclerView: RecyclerView
+    private lateinit var ordersActiveRecyclerView: RecyclerView
+    private lateinit var dialogEditOrder: OrderFormDialog
 
     private lateinit var adapter: OrderAdapter
-    private var orders: ArrayList<OrderDomain> = ArrayList()
+    private lateinit var adapterActive: OrderActiveAdapter
+    private var ordersInactive: ArrayList<OrderDomain> = ArrayList()
+    private var ordersActive: ArrayList<OrderDomain> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,56 +41,87 @@ class MainActivity : AppCompatActivity(), Main.View, View.OnClickListener {
     }
 
     override fun initialObjects() {
-        adapter = OrderAdapter(orders)
+        adapter = OrderAdapter(ordersInactive, this)
+        adapterActive = OrderActiveAdapter(ordersActive)
     }
 
     override fun initialElements() {
-        cost = findViewById(R.id.etCost)
-        orderCost = findViewById(R.id.etOrderCost)
-        description = findViewById(R.id.etDescription)
-        recyclerView = findViewById(R.id.rvList)
+        dialogEditOrder = OrderFormDialog(this)
+        dialogEditOrder.isCancelable = false
     }
 
     override fun initialLayout() {
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        //ordersRecyclerView.layoutManager = LinearLayoutManager(this)
+        //ordersActiveRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun addAdapters() {
-        recyclerView.adapter = adapter
+        val decoration = DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
+        ordersRecyclerView.addItemDecoration(decoration)
+        ordersRecyclerView.adapter = adapter
+        ordersActiveRecyclerView.addItemDecoration(decoration)
+        ordersActiveRecyclerView.adapter = adapterActive
     }
 
     override fun setOrders(orders: ArrayList<OrderDomain>) {
-        this.orders.clear()
-        this.orders.addAll(orders)
-        adapter.notifyDataSetChanged()
+
+        dialogEditOrder.dismiss()
     }
 
     override fun errorCost(value: String?) {
-        cost.error = value
+        dialogEditOrder.errorCost(value)
     }
 
     override fun errorOrderCost(value: String?) {
-        orderCost.error = value
+        dialogEditOrder.errorOrderCost(value)
     }
 
     override fun errorDescription(value: String?) {
-        description.error = value
+        dialogEditOrder.errorDescription(value)
     }
 
     override fun deleteFields() {
-        cost.setText("")
-        orderCost.setText("")
-        description.setText("")
+        dialogEditOrder.deleteFields()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btSave -> {
-                val cost = this.cost.text.toString()
-                val orderCost = this.orderCost.text.toString()
-                val description = this.description.text.toString()
-                presenter.saveOrder(cost, orderCost, description)
+            R.id.btAdd -> {
+                val args = Bundle()
+                args.putString(TYPE, ADD)
+                dialogEditOrder.arguments = args
+                dialogEditOrder.show(supportFragmentManager, "DIALOG_ADD_ORDER")
+            }
+            R.id.btCancel -> {
+                dialogEditOrder.deleteFields()
+                dialogEditOrder.dismiss()
             }
         }
+    }
+
+    override fun onClick(order: OrderDomain, view: View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_actions, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it?.itemId) {
+                R.id.itemEdit -> {
+                    val args = Bundle()
+                    args.putSerializable(ORDER, order)
+                    args.putString(TYPE, UPDATE)
+                    dialogEditOrder.arguments = args
+                    dialogEditOrder.show(supportFragmentManager, "DIALOG_EDIT_ORDER")
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
+        popupMenu.show()
+    }
+
+    override fun insertOrder(cost: String, orderCost: String, description: String) {
+        presenter.saveOrder(cost, orderCost, description)
+    }
+
+    override fun updateOrder(cost: String, orderCost: String, description: String) {
+        presenter.updateOrder(cost, orderCost, description)
     }
 }

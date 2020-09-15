@@ -19,6 +19,10 @@ class OrderRepositoryLocalImpl : OrderRepository {
             .flatMap { select(it) }
     }
 
+    override fun insertAndShowAll(order: OrderDomain): Observable<List<OrderDomain>> {
+        TODO("Not yet implemented")
+    }
+
     override fun select(): Observable<List<OrderDomain>> {
         val orders = orderDao.select()
         return ObjectMapper.toObservableOrders(orders)
@@ -29,7 +33,7 @@ class OrderRepositoryLocalImpl : OrderRepository {
         return ObjectMapper.toObservableOrder(order)
     }
 
-    override fun selectByUser(userId: String): Observable<List<OrderDomain>> {
+    override fun selectByUser(userId: Int): Observable<List<OrderDomain>> {
         val order = orderDao.selectByUser(userId)
         return ObjectMapper.toObservableOrders(order)
     }

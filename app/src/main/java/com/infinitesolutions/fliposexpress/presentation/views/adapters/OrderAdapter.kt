@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.infinitesolutions.fliposexpress.R
 import com.infinitesolutions.fliposexpress.domain.entities.OrderDomain
 
-class OrderAdapter(private val orders: ArrayList<OrderDomain>) :
+class OrderAdapter(
+    private val orders: ArrayList<OrderDomain>,
+    private val listener: OnClickItem
+) :
     RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cost: TextView = itemView.findViewById(R.id.tvCost)
@@ -27,8 +30,13 @@ class OrderAdapter(private val orders: ArrayList<OrderDomain>) :
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
-        holder.cost.text = "${order.cost}"
-        holder.orderCost.text = "${order.orderCost}"
+        holder.cost.text = order.getCostPrice()
+        holder.orderCost.text = order.getOrderCostPrice()
         holder.description.text = order.description
+        holder.itemView.setOnClickListener { listener.onClick(order, holder.itemView) }
+    }
+
+    interface OnClickItem {
+        fun onClick(order: OrderDomain, view: View)
     }
 }
