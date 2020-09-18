@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.infinitesolutions.domain.Constant.Companion.ID
 import com.infinitesolutions.domain.Constant.Companion.PASSWORD
-import com.infinitesolutions.domain.exception.empty.EmptyPasswordException
 import com.infinitesolutions.domain.exception.empty.EmptyUsernameException
 
 data class User constructor(
@@ -29,7 +28,7 @@ data class User constructor(
     init {
         validateUsername()
         validatePassword()
-        if (token != null) session.token = token
+        validateToken()
     }
 
     private fun validateUsername() {
@@ -37,10 +36,12 @@ data class User constructor(
     }
 
     private fun validatePassword() {
-        if (password.isNullOrEmpty()) throw EmptyPasswordException()
-        else auth = Auth(userId = id, password = password)
+        if (password != null) auth = Auth(userId = id, password = password)
     }
 
+    private fun validateToken(){
+        if (token != null) session.token = token
+    }
     override fun toString(): String =
         "Username: $username with ID: $id and Token: $session"
 }

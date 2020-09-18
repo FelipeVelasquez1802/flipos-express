@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 import com.infinitesolutions.domain.Constant.Companion.USER_ID
 import com.infinitesolutions.domain.exception.EmptyValueException
 import com.infinitesolutions.domain.exception.InvalidPasswordException
+import com.infinitesolutions.domain.exception.empty.EmptyPasswordException
 import java.util.regex.Pattern
 
 class Auth(
@@ -20,7 +21,7 @@ class Auth(
 
     init {
         if (password.isBlank()) {
-            throw EmptyValueException()
+            throw EmptyPasswordException()
         } else if (isPasswordValid()) {
             throw InvalidPasswordException()
         }

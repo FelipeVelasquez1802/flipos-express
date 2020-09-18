@@ -1,7 +1,6 @@
 package com.infinitesolutions.presentation.viewmodel
 
 import android.os.AsyncTask
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -34,14 +33,10 @@ class UserViewModel @ViewModelInject constructor(
 
     class UserAsyncTask(private val userService: UserService) : AsyncTask<User, String, Token>() {
         override fun doInBackground(vararg p0: User?): Token {
-            return try {
-                val user = p0[0]!!
-                val username = user.username
-                val password = user.auth.password
-                userService.login(username, password)
-            } catch (e: Throwable) {
-                throw IllegalStateException(e)
-            }
+            val user = p0[0]!!
+            val username = user.username
+            val password = user.auth.password
+            return userService.login(username, password)
         }
 
         override fun onPostExecute(result: Token?) {

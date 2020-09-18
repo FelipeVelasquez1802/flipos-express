@@ -1,12 +1,12 @@
 package com.infinitesolutions.dataaccess.repository
 
+import android.util.Log
 import com.infinitesolutions.dataaccess.Constant.Companion.HOSTNAME
 import com.infinitesolutions.dataaccess.anticorruption.TokenTranslator
 import com.infinitesolutions.dataaccess.dto.TokenDto
 import com.infinitesolutions.dataaccess.dto.UserDto
 import com.infinitesolutions.domain.entity.Token
-import com.infinitesolutions.domain.exception.EmptyUserException
-import com.infinitesolutions.domain.exception.UserLoginException
+import com.infinitesolutions.domain.exception.TranslatorErrorException
 import com.infinitesolutions.domain.repository.UserRepository
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -27,13 +27,9 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
         val auth = UserDto(username = username, password = password)
         val userService = retrofit.create(UserService::class.java)
         val call = userService.login(auth)
-        return try {
-            val response: Response<TokenDto> = call.execute()
-            val tokenDto = response.body()!!
-            tokenTranslator.fromDtoToDomain(tokenDto)
-        } catch (exception: EmptyUserException) {
-            throw UserLoginException()
-        }
+        val response: Response<TokenDto> = call.execute()
+        val tokenDto = response.body()
+        return tokenTranslator.fromDtoToDomain(tokenDto)
     }
 
     override fun logout(token: String): Any? {
