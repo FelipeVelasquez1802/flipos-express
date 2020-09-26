@@ -2,8 +2,10 @@ package com.infinitesolutions.presentation.view.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.infinitesolutions.presentation.Constant
 import com.infinitesolutions.presentation.Constant.Companion.MESSAGE
 import com.infinitesolutions.presentation.view.complement.ErrorDialog
+import com.infinitesolutions.presentation.view.complement.LoadingDialog
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -12,6 +14,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private val errorDialog by lazy { ErrorDialog() }
+    private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +26,25 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun initialElement()
 
-    protected fun showError(message: String) {
-        val args = Bundle()
-        args.putString(MESSAGE, message)
+    protected fun errorDriver(e: Throwable) {
+        dismissLoading()
+        showError(e.message ?: Constant.DEFAULT_MESSAGE)
+    }
+
+    private fun showError(message: String) {
         errorDialog.let {
+            val args = Bundle()
+            args.putString(MESSAGE, message)
             it.arguments = args
             it.show(supportFragmentManager, TAG_BASE_ACTIVITY)
         }
+    }
+
+    protected fun showLoading() {
+        loadingDialog.show()
+    }
+
+    protected fun dismissLoading() {
+        loadingDialog.dismiss()
     }
 }

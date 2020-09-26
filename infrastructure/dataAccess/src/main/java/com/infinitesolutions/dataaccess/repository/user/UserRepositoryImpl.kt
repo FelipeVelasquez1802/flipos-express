@@ -1,12 +1,10 @@
-package com.infinitesolutions.dataaccess.repository
+package com.infinitesolutions.dataaccess.repository.user
 
-import android.util.Log
 import com.infinitesolutions.dataaccess.Constant.Companion.HOSTNAME
 import com.infinitesolutions.dataaccess.anticorruption.TokenTranslator
 import com.infinitesolutions.dataaccess.dto.TokenDto
 import com.infinitesolutions.dataaccess.dto.UserDto
 import com.infinitesolutions.domain.entity.Token
-import com.infinitesolutions.domain.exception.TranslatorErrorException
 import com.infinitesolutions.domain.repository.UserRepository
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -14,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor() : UserRepository {
-
 
     private var retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(HOSTNAME)

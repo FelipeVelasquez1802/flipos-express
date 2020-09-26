@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".view.order.OrderActivity">
+
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/complement_action_bar" />
+
+    <include
+        android:id="@+id/listEmpty"
+        layout="@layout/complement_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btAdd"
+        android:layout_below="@id/actionBar"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btAdd"
+        android:layout_below="@id/actionBar" />
+
+    <Button
+        android:id="@+id/btAdd"
+        style="@style/ButtonTheme"
+        android:layout_alignParentBottom="true"
+        android:text="@string/add_order" />
+
+</RelativeLayout>

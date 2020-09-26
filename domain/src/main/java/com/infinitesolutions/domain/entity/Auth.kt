@@ -4,7 +4,6 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.infinitesolutions.domain.Constant.Companion.USER_ID
-import com.infinitesolutions.domain.exception.EmptyValueException
 import com.infinitesolutions.domain.exception.InvalidPasswordException
 import com.infinitesolutions.domain.exception.empty.EmptyPasswordException
 import java.util.regex.Pattern

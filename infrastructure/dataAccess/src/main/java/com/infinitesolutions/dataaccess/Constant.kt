@@ -8,15 +8,9 @@ class Constant {
         const val PASSWORD = "password"
         const val KEY = "key"
         const val USER = "user"
-        const val USER_ID = "userId"
         const val AUTH = "auth"
 
         const val HOSTNAME = "http://192.168.0.14:8000/"
-
-        // User
-
-        private const val AUTH_API = "api-auth/"
-        const val LOGIN = "${AUTH_API}login"
-        const val LOGOUT = "${AUTH_API}logout"
+        const val API_V = "api/v1/"
     }
 }

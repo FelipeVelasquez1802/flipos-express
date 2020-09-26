@@ -1,47 +1,44 @@
 package com.infinitesolutions.presentation.viewmodel
 
-import android.os.AsyncTask
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.infinitesolutions.domain.entity.Resource
 import com.infinitesolutions.domain.entity.Token
 import com.infinitesolutions.domain.entity.User
 import com.infinitesolutions.domain.service.UserService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class UserViewModel @ViewModelInject constructor(
-    private val userService: UserService,
-    @Assisted
-    private val savedStateHandle: SavedStateHandle
+    private val userService: UserService
 ) : ViewModel() {
 
     companion object {
-        private var userLiveData: MutableLiveData<User?> = MutableLiveData()
+        private var userLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
     }
 
-    fun executeLogin(user: User?): LiveData<User?> {
-        login(user)
-        return userLiveData
+    fun executeLogin(user: User?) {
+        CoroutineScope(IO).launch {
+            try {
+                val result = login(user)
+                userLiveData.postValue(Resource(result?.user))
+            } catch (e: Throwable) {
+                userLiveData.postValue(Resource(e))
+            }
+        }
     }
 
-    private fun login(user: User?) {
-        val userAsyncTask = UserAsyncTask(userService)
-        userAsyncTask.execute(user)
-    }
+    fun getLoginLiveData(): LiveData<Resource<User>> = userLiveData
 
-    class UserAsyncTask(private val userService: UserService) : AsyncTask<User, String, Token>() {
-        override fun doInBackground(vararg p0: User?): Token {
-            val user = p0[0]!!
+
+    private fun login(user: User?): Token? =
+        user?.let {
             val username = user.username
             val password = user.auth.password
-            return userService.login(username, password)
+            userService.login(username, password)
         }
-
-        override fun onPostExecute(result: Token?) {
-            userLiveData.value = result?.user
-        }
-    }
 
 }

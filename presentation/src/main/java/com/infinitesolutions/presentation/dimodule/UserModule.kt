@@ -1,6 +1,6 @@
 package com.infinitesolutions.presentation.dimodule
 
-import com.infinitesolutions.dataaccess.repository.UserRepositoryImpl
+import com.infinitesolutions.dataaccess.repository.user.UserRepositoryImpl
 import com.infinitesolutions.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module

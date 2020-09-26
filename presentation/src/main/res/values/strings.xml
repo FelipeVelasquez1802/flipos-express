@@ -3,8 +3,8 @@
     <string name="username">Nombre de usuario</string>
     <string name="singin">Iniciar sesión</string>
     <string name="password">Contraseña</string>
-    <string name="cost">Costo del pedido</string>
-    <string name="order_cost">Costo del domicilio</string>
+    <string name="cost">Costo del pedido: {}</string>
+    <string name="order_cost">Costo del domicilio: {}</string>
     <string name="description">Descripción del pedido</string>
     <string name="save">Guardar</string>
     <string name="date">Fecha</string>
@@ -16,7 +16,10 @@
     <string name="cancel">Cancelar</string>
     <string name="add_order">Añadir domicilio</string>
     <string name="title_order_active">Domicilio actual</string>
+    <string name="title_order_not_active">Domicilio finalizado</string>
     <string name="finish">Finalizar</string>
     <string name="error">¡Error!</string>
     <string name="ok">Listo</string>
+    <string name="wait_please">Cargando, por favor espera…</string>
+    <string name="list_empty">¡Ups!, no encontramos nada.</string>
 </resources>
