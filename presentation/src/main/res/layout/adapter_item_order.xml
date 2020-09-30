@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTitle"
-            android:text="@string/cost"
+            android:text="@string/cost_message"
             app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvCost"
-            android:text="@string/order_cost"
+            android:text="@string/order_cost_message"
             app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24" />
 
         <TextView

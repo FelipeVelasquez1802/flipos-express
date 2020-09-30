@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.domain.entity.Resource
 import com.infinitesolutions.presentation.R
+import com.infinitesolutions.presentation.tool.goTo
 import com.infinitesolutions.presentation.view.base.BaseActivity
 import com.infinitesolutions.presentation.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderActivity : BaseActivity() {
+class OrderActivity : BaseActivity(), View.OnClickListener {
 
     private val orderViewModel: OrderViewModel by lazy { ViewModelProvider(this).get(OrderViewModel::class.java) }
     private val orders: ArrayList<Order> = ArrayList()
@@ -62,6 +63,12 @@ class OrderActivity : BaseActivity() {
         } else {
             listEmpty.visibility = View.GONE
             list.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.btAdd -> this.goTo(AddOrderActivity::class.java, false)
         }
     }
 

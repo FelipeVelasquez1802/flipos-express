@@ -109,6 +109,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="TextViewTheme.Hyperlink.PrimaryDark.h4" parent="TextViewTheme">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
     <style name="SeparatorTheme" parent="Widget.AppCompat.TextView">
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>

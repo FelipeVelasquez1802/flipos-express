@@ -1,4 +1,4 @@
-package com.infinitesolutions.dataaccess.dto
+package com.infinitesolutions.dataaccess.dto.remote
 
 import androidx.annotation.Keep
 import com.infinitesolutions.dataaccess.Constant.Companion.ID

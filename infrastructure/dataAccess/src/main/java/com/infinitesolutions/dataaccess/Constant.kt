@@ -12,5 +12,8 @@ class Constant {
 
         const val HOSTNAME = "http://192.168.0.14:8000/"
         const val API_V = "api/v1/"
+
+
+        const val TABLE_USER = "user"
     }
 }

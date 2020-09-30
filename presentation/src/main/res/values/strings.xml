@@ -3,9 +3,9 @@
     <string name="username">Nombre de usuario</string>
     <string name="singin">Iniciar sesión</string>
     <string name="password">Contraseña</string>
-    <string name="cost">Costo del pedido: {}</string>
-    <string name="order_cost">Costo del domicilio: {}</string>
-    <string name="description">Descripción del pedido</string>
+    <string name="cost_message">Costo del pedido: {}</string>
+    <string name="order_cost_message">Costo del domicilio: {}</string>
+    <string name="description">Descripción del domicilio</string>
     <string name="save">Guardar</string>
     <string name="date">Fecha</string>
     <string name="image">Image</string>
@@ -22,4 +22,8 @@
     <string name="ok">Listo</string>
     <string name="wait_please">Cargando, por favor espera…</string>
     <string name="list_empty">¡Ups!, no encontramos nada.</string>
+    <string name="show_history">Ver historial de ordenes</string>
+    <string name="cost">¿Cuánto costó el domicilio?</string>
+    <string name="order_cost">¿Cuánto cobraras por el domicilio?</string>
+    <string name="add_order_message">¡Vamos a agregar un domicilio!</string>
 </resources>

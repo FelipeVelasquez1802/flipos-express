@@ -26,10 +26,19 @@
         android:layout_above="@id/btAdd"
         android:layout_below="@id/actionBar" />
 
+
     <Button
         android:id="@+id/btAdd"
         style="@style/ButtonTheme"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/tvShowHistory"
+        android:onClick="onClick"
         android:text="@string/add_order" />
+
+    <TextView
+        android:id="@+id/tvShowHistory"
+        style="@style/TextViewTheme.Hyperlink.PrimaryDark.h4"
+        android:layout_alignParentBottom="true"
+        android:onClick="onClick"
+        android:text="@string/show_history" />
 
 </RelativeLayout>

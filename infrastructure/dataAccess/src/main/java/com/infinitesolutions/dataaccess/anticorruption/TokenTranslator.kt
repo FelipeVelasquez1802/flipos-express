@@ -1,10 +1,9 @@
 package com.infinitesolutions.dataaccess.anticorruption
 
+import com.infinitesolutions.dataaccess.anticorruption.remote.UserTranslator
 import com.infinitesolutions.dataaccess.dto.TokenDto
 import com.infinitesolutions.domain.entity.Token
-import com.infinitesolutions.domain.exception.TranslatorErrorException
 import com.infinitesolutions.domain.exception.UserLoginException
-import javax.security.auth.login.LoginException
 
 class TokenTranslator {
 

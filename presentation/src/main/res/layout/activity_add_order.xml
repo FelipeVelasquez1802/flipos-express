@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.infinitesolutions.presentation.view.order.AddOrderActivity">
+
+    <include layout="@layout/complement_action_bar" />
+
+    <TextView
+        style="@style/TextViewTheme.Title.PrimaryDark"
+        android:text="@string/add_order_message" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_item_gray_256" />
+
+    <EditText
+        android:id="@+id/etCost"
+        style="@style/EditTextTheme"
+        android:autofillHints="@string/image"
+        android:hint="@string/cost"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etOrderCost"
+        style="@style/EditTextTheme"
+        android:autofillHints="@string/image"
+        android:hint="@string/order_cost"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        style="@style/EditTextTheme"
+        android:autofillHints="@string/image"
+        android:hint="@string/description"
+        android:inputType="textMultiLine|textCapWords" />
+
+    <Button
+        android:id="@+id/btAdd"
+        style="@style/ButtonTheme"
+        android:text="@string/add_order" />
+
+</LinearLayout>

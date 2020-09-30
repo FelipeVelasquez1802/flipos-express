@@ -30,8 +30,8 @@ class OrderAdapter private constructor(
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
-        holder.cost.text = replaceValue(R.string.cost, order.costFormat())
-        holder.orderCost.text = replaceValue(R.string.order_cost, order.orderCostFormat())
+        holder.cost.text = replaceValue(R.string.cost_message, order.costFormat())
+        holder.orderCost.text = replaceValue(R.string.order_cost_message, order.orderCostFormat())
         holder.description.text = order.description
     }
 

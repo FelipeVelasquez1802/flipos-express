@@ -1,9 +1,11 @@
 package com.infinitesolutions.presentation.view.base
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.infinitesolutions.presentation.Constant
 import com.infinitesolutions.presentation.Constant.Companion.MESSAGE
+import com.infinitesolutions.presentation.R
 import com.infinitesolutions.presentation.view.complement.ErrorDialog
 import com.infinitesolutions.presentation.view.complement.LoadingDialog
 
@@ -19,6 +21,8 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
+        setSupportActionBar(findViewById(R.id.toolBar))
+        (findViewById<ImageView>(R.id.ivBack))?.let { it.setOnClickListener { onBackPressed() } }
         initialElement()
     }
 
@@ -47,4 +51,5 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun dismissLoading() {
         loadingDialog.dismiss()
     }
+
 }

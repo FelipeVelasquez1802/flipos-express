@@ -16,23 +16,21 @@ class UserViewModel @ViewModelInject constructor(
     private val userService: UserService
 ) : ViewModel() {
 
-    companion object {
-        private var userLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
-    }
+    private var loginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
+    var isLoginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
 
     fun executeLogin(user: User?) {
         CoroutineScope(IO).launch {
             try {
                 val result = login(user)
-                userLiveData.postValue(Resource(result?.user))
+                loginLiveData.postValue(Resource(result?.user))
             } catch (e: Throwable) {
-                userLiveData.postValue(Resource(e))
+                loginLiveData.postValue(Resource(e))
             }
         }
     }
 
-    fun getLoginLiveData(): LiveData<Resource<User>> = userLiveData
-
+    fun getLoginLiveData(): LiveData<Resource<User>> = loginLiveData
 
     private fun login(user: User?): Token? =
         user?.let {
@@ -40,5 +38,16 @@ class UserViewModel @ViewModelInject constructor(
             val password = user.auth.password
             userService.login(username, password)
         }
+
+    fun executeIsLogin() {
+        CoroutineScope(IO).launch {
+            try {
+                val result = userService.isLogin()
+                isLoginLiveData.postValue(Resource(result?.user))
+            } catch (e: Throwable) {
+                isLoginLiveData.postValue(Resource(e))
+            }
+        }
+    }
 
 }

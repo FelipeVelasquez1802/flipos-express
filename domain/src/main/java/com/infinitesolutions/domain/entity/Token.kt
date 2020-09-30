@@ -6,10 +6,11 @@ import com.google.gson.annotations.SerializedName
 import com.infinitesolutions.domain.Constant.Companion.KEY
 import com.infinitesolutions.domain.Constant.Companion.USER
 
-data class Token(
+data class Token constructor(
     @SerializedName(KEY) @Expose @Keep val key: String,
     @SerializedName(USER) @Expose @Keep val user: User
 ) {
+    constructor(user: User) : this(user.getTokenNotNull(), user)
 
     init {
         user.session.token = key
