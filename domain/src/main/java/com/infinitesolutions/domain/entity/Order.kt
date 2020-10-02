@@ -7,6 +7,7 @@ import com.infinitesolutions.domain.Constant
 import com.infinitesolutions.domain.exception.empty.EmptyCostException
 import com.infinitesolutions.domain.exception.empty.EmptyDescriptionException
 import com.infinitesolutions.domain.exception.empty.EmptyOrderCostException
+import com.infinitesolutions.domain.tool.Format
 
 data class Order(
     @SerializedName(Constant.ID) @Expose @Keep val id: Int = -1,
@@ -26,9 +27,9 @@ data class Order(
         validateDescription()
     }
 
-    fun costFormat() = cost.toString()
+    fun costFormat(): String = Format.formatPrice(cost)
 
-    fun orderCostFormat() = orderCost.toString()
+    fun orderCostFormat(): String = Format.formatPrice(orderCost)
 
     private fun validateCost() {
         if (cost == 0.0) throw EmptyCostException()

@@ -1,6 +1,7 @@
 package com.infinitesolutions.dataaccess.repository.user.local
 
 import androidx.room.*
+import com.infinitesolutions.dataaccess.Constant.Companion.ID
 import com.infinitesolutions.dataaccess.Constant.Companion.KEY
 import com.infinitesolutions.dataaccess.Constant.Companion.TABLE_USER
 import com.infinitesolutions.dataaccess.dto.local.UserDto
@@ -10,6 +11,7 @@ interface UserService {
 
     companion object {
         private const val SELECT = "SELECT * FROM $TABLE_USER"
+        private const val SELECT_ID = "SELECT $ID FROM $TABLE_USER"
         private const val SELECT_TOKEN = "SELECT $KEY FROM $TABLE_USER"
     }
 
@@ -18,6 +20,9 @@ interface UserService {
 
     @Query("$SELECT WHERE id=:id")
     fun select(id: Int): UserDto?
+
+    @Query("$SELECT_ID LIMIT 1")
+    fun selectId(): Int?
 
     @Query("$SELECT_TOKEN LIMIT 1")
     fun selectToken(): String?

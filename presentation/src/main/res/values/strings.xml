@@ -26,4 +26,6 @@
     <string name="cost">¿Cuánto costó el domicilio?</string>
     <string name="order_cost">¿Cuánto cobraras por el domicilio?</string>
     <string name="add_order_message">¡Vamos a agregar un domicilio!</string>
+    <string name="total_price">Este domicilio es de {}</string>
+    <string name="date_order">Este domicilio fue el {}</string>
 </resources>

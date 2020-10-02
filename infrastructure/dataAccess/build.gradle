@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -33,11 +33,31 @@ android {
     
     productFlavors {
         local {
-            dimension "env"
+            buildConfigField("String", "HOSTNAME", '"http://192.168.0.14:8000/"')
+        }
+        mock {
+            buildConfigField("String", "HOSTNAME", '"http://192.168.0.14:8000/"')
         }
         production {
-            dimension "env"
+            buildConfigField("String", "HOSTNAME", '"http://192.168.0.14:8000/"')
         }
+    }
+
+    sourceSets {
+        local {
+            java.srcDirs = ['src/production/java']
+        }
+        mock {
+            java.srcDirs = ['src/mock/java']
+        }
+        production {
+            java.srcDirs = ['src/production/java']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
