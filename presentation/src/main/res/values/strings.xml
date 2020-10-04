@@ -15,7 +15,7 @@
     <string name="edit">Editar</string>
     <string name="cancel">Cancelar</string>
     <string name="add_order">Añadir domicilio</string>
-    <string name="title_order_active">Domicilio actual</string>
+    <string name="title_order_active">Domicilios actuales</string>
     <string name="title_order_not_active">Domicilio finalizado</string>
     <string name="finish">Finalizar</string>
     <string name="error">¡Error!</string>
@@ -28,4 +28,5 @@
     <string name="add_order_message">¡Vamos a agregar un domicilio!</string>
     <string name="total_price">Este domicilio es de {}</string>
     <string name="date_order">Este domicilio fue el {}</string>
+    <string name="title_order_inactive">Historial de domicilios</string>
 </resources>

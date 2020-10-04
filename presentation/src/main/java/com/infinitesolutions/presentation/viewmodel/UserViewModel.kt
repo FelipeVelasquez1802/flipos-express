@@ -12,9 +12,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class UserViewModel @ViewModelInject constructor(
-    private val userService: UserService
-) : ViewModel() {
+class UserViewModel @ViewModelInject constructor(private val userService: UserService) :
+    ViewModel() {
 
     private var loginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
     var isLoginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()

@@ -10,30 +10,27 @@ import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.presentation.R
 import com.infinitesolutions.presentation.tool.UiString
 
-class OrderAdapter constructor(
+class OrderHistoryAdapter constructor(
     private val context: Context,
     private val orders: ArrayList<Order>
-) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
+) : RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder>() {
 
     private val uiString: UiString by lazy { UiString(context) }
 
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cost: TextView = itemView.findViewById(R.id.tvCost)
-        val orderCost: TextView = itemView.findViewById(R.id.tvOrderCost)
-        val description: TextView = itemView.findViewById(R.id.tvDescription)
+        val text: TextView = itemView.findViewById(R.id.tvTextOrder)
+        val date: TextView = itemView.findViewById(R.id.tvDate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder =
-        LayoutInflater.from(parent.context).inflate(R.layout.adapter_item_order, parent, false)
+        LayoutInflater.from(parent.context)
+            .inflate(R.layout.adapter_item_order_inactive, parent, false)
             .let { OrderViewHolder(it) }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
-        holder.cost.text = uiString.replaceValue(R.string.cost_message, order.costFormat())
-        holder.orderCost.text = uiString.replaceValue(
-            R.string.order_cost_message, order.orderCostFormat()
-        )
-        holder.description.text = order.description
+        holder.text.text = uiString.replaceValue(R.string.total_price, order.totalPriceFormat())
+        holder.date.text = uiString.replaceValue(R.string.date_order, order.finishDateFormat())
     }
 
     override fun getItemCount(): Int = orders.size

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.infinitesolutions.presentation.view.order.HistoryOrderActivity">
+    android:orientation="vertical"
+    tools:context="com.infinitesolutions.presentation.view.order.OrderHistoryActivity">
+
+    <include layout="@layout/complement_action_bar" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextViewTheme.Title.PrimaryDark.H1"
+        android:text="@string/title_order_inactive" />
+
+    <include
+        android:id="@+id/listEmpty"
+        layout="@layout/complement_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</RelativeLayout>
+</LinearLayout>
