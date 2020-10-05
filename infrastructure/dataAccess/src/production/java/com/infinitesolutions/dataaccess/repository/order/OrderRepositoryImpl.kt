@@ -24,15 +24,17 @@ class OrderRepositoryImpl @Inject constructor(
 
     private var orderService = RemoteRetrofit.retrofit.create(OrderService::class.java)
 
-    override fun selectActiveByUser(userId: Int): List<Order> {
-        val call = orderService.selectByUser(userId, VALUE_ACTIVE)
+    override fun selectActiveByUser(userId: Int): List<Order> =
+        consumeOrderByUser(userId, VALUE_ACTIVE)
+
+    override fun selectInactiveByUser(userId: Int): List<Order> =
+        consumeOrderByUser(userId, VALUE_INACTIVE)
+
+    private fun consumeOrderByUser(userId: Int, finish: String): List<Order> {
+        val call = orderService.selectByUser(userId, finish)
         val response: Response<List<OrderDto>> = call.execute()
         val ordersDto = response.body() ?: throw OrdersNullException()
         return orderTranslator.fromDtoListToDomainList(ordersDto)
-    }
-
-    override fun selectInactiveByUser(userId: Int): List<Order> {
-        return emptyList()
     }
 
 }
