@@ -55,18 +55,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-
-    implementation project(":infrastructure:dataAccess")
-    implementation project(":infrastructure:deviceHardware")
-    implementation project(":application")
-    implementation project(":domain")
-
     // Hilt
 
     implementation 'com.google.dagger:hilt-android:2.29.1-alpha'
     kapt 'com.google.dagger:hilt-android-compiler:2.29.1-alpha'
 
     // LifeCycle
+
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
@@ -78,4 +73,9 @@ dependencies {
     // RecyclerView
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation project(":infrastructure:dataAccess")
+    implementation project(":infrastructure:deviceHardware")
+    implementation project(":application")
+    implementation project(":domain")
 }

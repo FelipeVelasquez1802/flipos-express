@@ -6,5 +6,7 @@ import javax.inject.Inject
 
 class OrderService @Inject constructor(private val orderRepository: OrderRepository) {
 
-    fun selectOrder(userId: Int): List<Order> = orderRepository.selectByUser(userId)
+    fun selectOrderActive(userId: Int): List<Order> = orderRepository.selectActiveByUser(userId)
+
+    fun selectOrderInactive(userId: Int): List<Order> = orderRepository.selectInactiveByUser(userId)
 }

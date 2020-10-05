@@ -3,5 +3,6 @@ package com.infinitesolutions.domain.repository
 import com.infinitesolutions.domain.entity.Order
 
 interface OrderRepository {
-    fun selectByUser(userId: Int): List<Order>
+    fun selectActiveByUser(userId:Int): List<Order>
+    fun selectInactiveByUser(userId:Int): List<Order>
 }

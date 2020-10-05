@@ -28,6 +28,8 @@ class UserRepositoryImpl @Inject constructor(
         return userTranslator.fromDtoToDomain(user)
     }
 
+    override fun selectId(): Int? = userService.selectId()
+
     override fun selectToken(): String? = userService.selectToken()
 
     override fun update(user: User): User {

@@ -7,27 +7,40 @@ import androidx.lifecycle.ViewModel
 import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.domain.entity.Resource
 import com.infinitesolutions.domain.service.OrderService
+import com.infinitesolutions.domain.service.UserService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 class OrderViewModel @ViewModelInject constructor(
-    private val orderService: OrderService
+    private val orderService: OrderService,
+    private val userService: UserService
 ) : ViewModel() {
 
-    private val ordersLiveData: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
+    val ordersActiveLiveData: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
+    val ordersInactiveLiveData: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
 
-    fun executeSelectByUser() {
+    fun executeSelectActiveByUser() {
         CoroutineScope(IO).launch {
             try {
-                // TODO aquí agregar la lógica para que traiga el id del usuario
-                val result = orderService.selectOrder(1)
-                ordersLiveData.postValue(Resource(result))
+                val userId = userService.selectId()
+                val result = orderService.selectOrderActive(userId)
+                ordersActiveLiveData.postValue(Resource(result))
             } catch (e: Throwable) {
-                ordersLiveData.postValue(Resource(e))
+                ordersActiveLiveData.postValue(Resource(e))
             }
         }
     }
 
-    fun getSelectByUserLiveData(): LiveData<Resource<List<Order>>> = ordersLiveData
+    fun executeSelectInactiveByUser(){
+        CoroutineScope(IO).launch {
+            try {
+                val userId = userService.selectId()
+                val result = orderService.selectOrderInactive(userId)
+                ordersActiveLiveData.postValue(Resource(result))
+            } catch (e: Throwable) {
+                ordersActiveLiveData.postValue(Resource(e))
+            }
+        }
+    }
 }

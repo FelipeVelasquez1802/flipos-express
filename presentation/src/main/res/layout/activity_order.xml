@@ -10,13 +10,19 @@
         android:id="@+id/actionBar"
         layout="@layout/complement_action_bar" />
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_below="@id/actionBar"
+        style="@style/TextViewTheme.Title.PrimaryDark.H1"
+        android:text="@string/title_order_active" />
+
     <include
         android:id="@+id/listEmpty"
         layout="@layout/complement_empty_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btAdd"
-        android:layout_below="@id/actionBar"
+        android:layout_below="@id/tvTitle"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,8 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btAdd"
-        android:layout_below="@id/actionBar" />
-
+        android:layout_below="@id/tvTitle" />
 
     <Button
         android:id="@+id/btAdd"
