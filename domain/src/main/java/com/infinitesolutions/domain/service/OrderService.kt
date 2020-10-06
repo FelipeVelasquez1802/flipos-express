@@ -9,4 +9,6 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
     fun selectOrderActive(userId: Int): List<Order> = orderRepository.selectActiveByUser(userId)
 
     fun selectOrderInactive(userId: Int): List<Order> = orderRepository.selectInactiveByUser(userId)
+
+    fun insert(order: Order): Order = orderRepository.insert(order)
 }

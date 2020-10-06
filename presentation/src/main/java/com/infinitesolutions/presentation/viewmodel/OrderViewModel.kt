@@ -1,7 +1,6 @@
 package com.infinitesolutions.presentation.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.infinitesolutions.domain.entity.Order
@@ -18,6 +17,7 @@ class OrderViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     val ordersActiveLiveData: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
+    val orderLiveData: MutableLiveData<Resource<Order>> = MutableLiveData()
     val ordersInactiveLiveData: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
 
     fun executeSelectActiveByUser() {
@@ -32,12 +32,23 @@ class OrderViewModel @ViewModelInject constructor(
         }
     }
 
-    fun executeSelectInactiveByUser(){
+    fun executeSelectInactiveByUser() {
         CoroutineScope(IO).launch {
             try {
                 val userId = userService.selectId()
                 val result = orderService.selectOrderInactive(userId)
                 ordersActiveLiveData.postValue(Resource(result))
+            } catch (e: Throwable) {
+                ordersActiveLiveData.postValue(Resource(e))
+            }
+        }
+    }
+
+    fun executeInsert(order: Order) {
+        CoroutineScope(IO).launch {
+            try {
+                val result = orderService.insert(order)
+                orderLiveData.postValue(Resource(result))
             } catch (e: Throwable) {
                 ordersActiveLiveData.postValue(Resource(e))
             }

@@ -10,7 +10,7 @@ data class OrderDto(
     @SerializedName(COST) @Expose @Keep val cost: Double,
     @SerializedName(ORDER_COST) @Expose @Keep val orderCost: Double,
     @SerializedName(DESCRIPTION) @Expose @Keep val description: String,
-    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String
+    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String?
 ) {
     companion object {
         private const val COST = "cost"
