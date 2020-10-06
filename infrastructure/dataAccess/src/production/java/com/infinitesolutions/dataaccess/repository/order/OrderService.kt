@@ -3,7 +3,9 @@ package com.infinitesolutions.dataaccess.repository.order
 import com.infinitesolutions.dataaccess.Constant.Companion.API_V
 import com.infinitesolutions.dataaccess.dto.OrderDto
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface OrderService {
@@ -16,5 +18,8 @@ interface OrderService {
 
     @GET(BY_USER)
     fun selectByUser(@Path(USER_ID) userId: Int, @Path(FINISH) finish: String): Call<List<OrderDto>>
+
+    @POST(ORDER)
+    fun insert(@Body orderDto: OrderDto): Call<List<OrderDto>>
 
 }

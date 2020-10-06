@@ -47,8 +47,9 @@ class OrderViewModel @ViewModelInject constructor(
     fun executeInsert(order: Order) {
         CoroutineScope(IO).launch {
             try {
+                val userId = userService.selectId()
                 val result = orderService.insert(order)
-                orderLiveData.postValue(Resource(result))
+                ordersActiveLiveData.postValue(Resource(result))
             } catch (e: Throwable) {
                 ordersActiveLiveData.postValue(Resource(e))
             }

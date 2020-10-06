@@ -3,7 +3,9 @@ package com.infinitesolutions.domain.service
 import android.util.Log
 import com.infinitesolutions.domain.entity.Token
 import com.infinitesolutions.domain.exception.EmptyUserException
+import com.infinitesolutions.domain.exception.empty.EmptyPasswordException
 import com.infinitesolutions.domain.exception.empty.EmptyTokenException
+import com.infinitesolutions.domain.exception.empty.EmptyUsernameException
 import com.infinitesolutions.domain.exception.valuenull.IdNullException
 import javax.inject.Inject
 import com.infinitesolutions.domain.repository.local.UserRepository as UserRepositoryLocal
@@ -19,6 +21,8 @@ class UserService @Inject constructor(
     }
 
     fun login(username: String, password: String): Token? {
+        if (username.isEmpty()) throw EmptyUsernameException()
+        if (password.isEmpty()) throw EmptyPasswordException()
         val token = userRepositoryRemote.login(username, password)
         val user = token?.user ?: throw EmptyUserException()
         return Token(userRepositoryLocal.update(user))

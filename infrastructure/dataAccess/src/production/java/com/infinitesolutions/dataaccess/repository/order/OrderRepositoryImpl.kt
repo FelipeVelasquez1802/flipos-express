@@ -30,6 +30,14 @@ class OrderRepositoryImpl @Inject constructor(
     override fun selectInactiveByUser(userId: Int): List<Order> =
         consumeOrderByUser(userId, VALUE_INACTIVE)
 
+    override fun insert(order: Order): List<Order> {
+        val orderDto = orderTranslator.fromDomainToDto(order)
+        val call = orderService.insert(orderDto)
+        val response: Response<List<OrderDto>> = call.execute()
+        val orderResponse = response.body() ?: throw OrdersNullException()
+        return orderTranslator.fromDtoListToDomainList(orderResponse)
+    }
+
     private fun consumeOrderByUser(userId: Int, finish: String): List<Order> {
         val call = orderService.selectByUser(userId, finish)
         val response: Response<List<OrderDto>> = call.execute()

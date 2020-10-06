@@ -28,7 +28,6 @@ data class User constructor(
 
     init {
         validateUsername()
-        validatePassword()
         validateToken()
     }
 
@@ -36,12 +35,13 @@ data class User constructor(
         if (username.isEmpty()) throw EmptyUsernameException()
     }
 
-    private fun validatePassword() {
-        if (password != null) auth = Auth(userId = id, password = password)
-    }
-
     private fun validateToken() {
         if (token != null) session.token = token
+        else validatePassword()
+    }
+
+    private fun validatePassword() {
+        auth = Auth(userId = id, password = password)
     }
 
     fun getTokenNotNull(): String = token ?: throw EmptyTokenException()

@@ -20,11 +20,7 @@ data class Order constructor(
 ) {
 
     constructor(cost: String, orderCost: String, description: String) : this(
-        cost = try {
-            cost.toDouble()
-        } catch (e: Throwable) {
-            throw EmptyCostException()
-        },
+        cost = Companion.validateCost(cost),
         orderCost = try {
             orderCost.toDouble()
         } catch (e: Throwable) {
@@ -38,6 +34,11 @@ data class Order constructor(
         private const val ORDER_COST = "cost_order"
         private const val DESCRIPTION = "description"
         private const val FINISH_DATE = "finish_date"
+
+        private fun validateCost(cost: String): Double {
+            if (cost.isEmpty()) throw EmptyCostException()
+            return cost.toDouble()
+        }
     }
 
     init {
