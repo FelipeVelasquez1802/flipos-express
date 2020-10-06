@@ -7,4 +7,16 @@ class OrderTranslator {
 
     fun fromDtoListToDomainList(ordersDto: List<OrderDto>): List<Order> =
         ordersDto.map { Order(it.id, it.cost, it.orderCost, it.description, it.finishDate) }
+
+    fun fromDtoToDomain(orderDto: OrderDto): Order =
+        Order(
+            orderDto.id,
+            orderDto.cost,
+            orderDto.orderCost,
+            orderDto.description,
+            orderDto.finishDate
+        )
+
+    fun fromDomainToDto(order: Order): OrderDto =
+        OrderDto(order.id, order.cost, order.orderCost, order.description, order.finishDate)
 }

@@ -2,11 +2,20 @@ package com.infinitesolutions.presentation.view.order
 
 import android.view.View
 import android.widget.EditText
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.infinitesolutions.domain.entity.Order
+import com.infinitesolutions.domain.entity.Resource
 import com.infinitesolutions.presentation.R
+import com.infinitesolutions.presentation.tool.goTo
 import com.infinitesolutions.presentation.view.base.BaseActivity
+import com.infinitesolutions.presentation.viewmodel.OrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderAddActivity : BaseActivity(), View.OnClickListener {
+
+    private val orderViewModel: OrderViewModel by lazy { ViewModelProvider(this).get(OrderViewModel::class.java) }
 
     private lateinit var cost: EditText
     private lateinit var orderCost: EditText
@@ -18,6 +27,7 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
         cost = findViewById(R.id.etCost)
         orderCost = findViewById(R.id.etOrderCost)
         description = findViewById(R.id.etDescription)
+        orderViewModel.orderLiveData.observe(this, insert())
     }
 
     override fun onClick(p0: View?) {
@@ -33,8 +43,19 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
             val orderCost = this.orderCost.text.toString()
             val description = this.description.text.toString()
             val order = Order(cost, orderCost, description)
+            orderViewModel.executeInsert(order)
         } catch (e: Throwable) {
             errorDriver(e)
+        }
+    }
+
+    private fun insert(): Observer<Resource<Order>> = Observer {
+        if (it.isSuccessful) {
+            dismissLoading()
+            this.goTo(OrderActivity::class.java)
+        } else {
+            val error = it.error()
+            errorDriver(error)
         }
     }
 
