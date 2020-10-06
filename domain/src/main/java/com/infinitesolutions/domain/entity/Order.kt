@@ -7,16 +7,32 @@ import com.infinitesolutions.domain.Constant
 import com.infinitesolutions.domain.exception.empty.EmptyCostException
 import com.infinitesolutions.domain.exception.empty.EmptyDescriptionException
 import com.infinitesolutions.domain.exception.empty.EmptyOrderCostException
+import com.infinitesolutions.domain.exception.valuenull.DateNullException
 import com.infinitesolutions.domain.tool.Format
 import com.infinitesolutions.domain.tool.UiDate
 
-data class Order(
+data class Order constructor(
     @SerializedName(Constant.ID) @Expose @Keep val id: Int = -1,
-    @SerializedName(COST) @Expose @Keep val cost: Double,
-    @SerializedName(ORDER_COST) @Expose @Keep val orderCost: Double,
-    @SerializedName(DESCRIPTION) @Expose @Keep val description: String? = null,
-    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String
+    @SerializedName(COST) @Expose @Keep var cost: Double,
+    @SerializedName(ORDER_COST) @Expose @Keep var orderCost: Double,
+    @SerializedName(DESCRIPTION) @Expose @Keep val description: String,
+    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String? = null
 ) {
+
+    constructor(cost: String, orderCost: String, description: String) : this(
+        cost = try {
+            cost.toDouble()
+        } catch (e: Throwable) {
+            throw EmptyCostException()
+        },
+        orderCost = try {
+            orderCost.toDouble()
+        } catch (e: Throwable) {
+            throw EmptyOrderCostException()
+        },
+        description = description
+    )
+
     companion object {
         private const val COST = "cost"
         private const val ORDER_COST = "cost_order"
@@ -34,7 +50,8 @@ data class Order(
 
     fun orderCostFormat(): String = Format.formatPrice(orderCost)
 
-    fun finishDateFormat(): String = UiDate.fromDateFormatToDateFormat(finishDate)
+    fun finishDateFormat(): String =
+        UiDate.fromDateFormatToDateFormat(finishDate ?: throw DateNullException())
 
     fun totalPriceFormat(): String = Format.formatPrice(orderCost + cost)
 
@@ -47,6 +64,7 @@ data class Order(
     }
 
     private fun validateDescription() {
-        if (description.isNullOrEmpty()) throw EmptyDescriptionException()
+        if (description.isEmpty()) throw EmptyDescriptionException()
     }
+
 }
