@@ -12,7 +12,7 @@ data class User constructor(
     @SerializedName(ID) @Expose @Keep val id: Int = -1,
     @SerializedName(USERNAME) @Expose @Keep val username: String,
     @SerializedName(PASSWORD) @Expose @Keep private val password: String? = null,
-    val token: String? = null
+    var token: String? = null
 ) {
     companion object {
         const val USERNAME = "username"

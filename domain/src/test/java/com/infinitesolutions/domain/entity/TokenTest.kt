@@ -41,4 +41,15 @@ class TokenTest {
         // Then
         assertNotNull(token)
     }
+
+    @Test
+    fun createTokenWithPasswordNotEmpty() {
+        // Given
+        val key = "123qweasdzxc"
+        val password = "admin"
+        // When
+        val token = Token(key, User(1, "admin", password))
+        // Then
+        assertNotNull(token)
+    }
 }

@@ -19,7 +19,7 @@ data class Token constructor(
 
     private fun validateKey() {
         if (key.isEmpty()) throw EmptyTokenException()
-        else user.session.token = key
+        else user.token = key
     }
 
     override fun toString(): String {

@@ -34,7 +34,7 @@ class UserViewModel @ViewModelInject constructor(private val userService: UserSe
         CoroutineScope(IO).launch {
             try {
                 val result = userService.isLogin()
-                isLoginLiveData.postValue(Resource(result?.user))
+                isLoginLiveData.postValue(Resource(result.user))
             } catch (e: Throwable) {
                 isLoginLiveData.postValue(Resource(e))
             }

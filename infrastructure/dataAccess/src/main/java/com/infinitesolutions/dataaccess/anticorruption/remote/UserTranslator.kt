@@ -9,4 +9,8 @@ class UserTranslator {
         return User(userDto.id, userDto.username)
     }
 
+    fun fromDtoToDomain(userDto: UserDto, token: String): User {
+        return User(userDto.id, userDto.username, token = token)
+    }
+
 }
