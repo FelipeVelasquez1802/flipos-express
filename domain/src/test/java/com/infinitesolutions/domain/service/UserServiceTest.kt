@@ -2,7 +2,6 @@ package com.infinitesolutions.domain.service
 
 import com.infinitesolutions.domain.entity.Token
 import com.infinitesolutions.domain.entity.User
-import com.infinitesolutions.domain.exception.EmptyUserException
 import com.infinitesolutions.domain.exception.empty.EmptyPasswordException
 import com.infinitesolutions.domain.exception.empty.EmptyTokenException
 import com.infinitesolutions.domain.exception.empty.EmptyUsernameException
@@ -125,21 +124,4 @@ class UserServiceTest {
         }
     }
 
-    @Test
-    fun isLoginFinishSession() {
-        // Given
-        val key = "123qweasdzxc"
-        val user = User(1, "admin", token = key)
-        val messageException = "Tenemos problemas con el usuario, llegó nulo"
-        `when`(userRepositoryLocal.selectToken()).thenReturn(key)
-        `when`(userRepositoryRemote.isLogin(key)).thenReturn(null)
-        // When
-        try {
-            userService.isLogin()
-            fail()
-        } catch (e: EmptyUserException) {
-            // Then
-            assertEquals(messageException, e.message)
-        }
-    }
 }

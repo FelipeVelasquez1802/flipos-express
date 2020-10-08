@@ -29,13 +29,14 @@ class UserService @Inject constructor(
     }
 
     fun isLogin(): Token {
-        val token = userRepositoryLocal.selectToken()
-        if (token.isNullOrEmpty()) {
+        val key = userRepositoryLocal.selectToken()
+        if (key.isNullOrEmpty()) {
             val exception = EmptyTokenException()
             Log.d("tag_message", "$CLASS_NAME: ${exception.message}")
             throw exception
         }
-        val user = userRepositoryRemote.isLogin(token)?.user ?: throw EmptyUserException()
+        val token = userRepositoryRemote.isLogin(key) ?: throw EmptyUserException()
+        val user = token.user
         return Token(userRepositoryLocal.update(user))
     }
 
