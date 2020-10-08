@@ -23,8 +23,8 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
         return orderRepository.insert(order)
     }
 
-    fun updateFinish(orderId: Int): List<Order> {
+    fun updateFinish(orderId: Int, userId: Int): List<Order> {
         if (orderId < 1) throw BadOrderIdException()
-        return orderRepository.updateFinish(orderId)
+        return orderRepository.updateFinish(orderId, userId)
     }
 }

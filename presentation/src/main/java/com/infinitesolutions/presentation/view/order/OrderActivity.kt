@@ -14,7 +14,7 @@ import com.infinitesolutions.presentation.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderActivity : BaseListActivity(), View.OnClickListener {
+class OrderActivity : BaseListActivity(), View.OnClickListener, OrderAdapter.ActionListener {
 
     private val orderViewModel: OrderViewModel by lazy { ViewModelProvider(this).get(OrderViewModel::class.java) }
     private val orders: ArrayList<Order> = ArrayList()
@@ -29,14 +29,14 @@ class OrderActivity : BaseListActivity(), View.OnClickListener {
         showLoading()
         initialList()
         orderViewModel.let {
-            it.ordersActiveLiveData.observe(this, selectByUser())
+            it.ordersLiveData.observe(this, selectByUser())
             it.executeSelectActiveByUser()
         }
     }
 
     private fun initialList() {
         listEmpty = findViewById(R.id.listEmpty)
-        adapter = OrderAdapter(this, orders)
+        adapter = OrderAdapter(this, orders, this)
         list = findViewById(R.id.rvList)
         list.let {
             it.layoutManager = LinearLayoutManager(this)
@@ -61,6 +61,10 @@ class OrderActivity : BaseListActivity(), View.OnClickListener {
             R.id.btAdd -> this.goTo(OrderAddActivity::class.java, false)
             R.id.tvShowHistory -> this.goTo(OrderHistoryActivity::class.java, false)
         }
+    }
+
+    override fun finishOrder(orderId: Int) {
+        orderViewModel.executeUpdateFinish(orderId)
     }
 
 }
