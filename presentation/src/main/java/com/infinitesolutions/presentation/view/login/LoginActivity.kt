@@ -38,14 +38,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateLogin() {
         showLoading()
-        try {
-            val username = this.username.text.toString()
-            val password = this.password.text.toString()
-            val user = User(username = username, password = password)
-            userViewModel.executeLogin(user)
-        } catch (e: Throwable) {
-            errorDriver(e)
-        }
+        val username = this.username.text.toString()
+        val password = this.password.text.toString()
+        userViewModel.executeLogin(username, password)
     }
 
     private fun login(): Observer<Resource<User>> = Observer {

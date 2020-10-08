@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.infinitesolutions.domain.Constant.Companion.KEY
 import com.infinitesolutions.domain.Constant.Companion.USER
+import com.infinitesolutions.domain.exception.empty.EmptyTokenException
 
 data class Token constructor(
     @SerializedName(KEY) @Expose @Keep val key: String,
@@ -13,7 +14,12 @@ data class Token constructor(
     constructor(user: User) : this(user.getTokenNotNull(), user)
 
     init {
-        user.session.token = key
+        validateKey()
+    }
+
+    private fun validateKey() {
+        if (key.isEmpty()) throw EmptyTokenException()
+        else user.token = key
     }
 
     override fun toString(): String {

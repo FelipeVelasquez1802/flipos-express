@@ -3,7 +3,9 @@ package com.infinitesolutions.domain.entity
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.infinitesolutions.domain.Constant
+import com.infinitesolutions.domain.Constant.Companion.ID
+import com.infinitesolutions.domain.Constant.Companion.USER
+import com.infinitesolutions.domain.exception.BadUserIdException
 import com.infinitesolutions.domain.exception.empty.EmptyCostException
 import com.infinitesolutions.domain.exception.empty.EmptyDescriptionException
 import com.infinitesolutions.domain.exception.empty.EmptyOrderCostException
@@ -12,25 +14,19 @@ import com.infinitesolutions.domain.tool.Format
 import com.infinitesolutions.domain.tool.UiDate
 
 data class Order constructor(
-    @SerializedName(Constant.ID) @Expose @Keep val id: Int = -1,
+    @SerializedName(ID) @Expose @Keep val id: Int = -1,
     @SerializedName(COST) @Expose @Keep var cost: Double,
     @SerializedName(ORDER_COST) @Expose @Keep var orderCost: Double,
     @SerializedName(DESCRIPTION) @Expose @Keep val description: String,
+    @SerializedName(USER) @Expose @Keep var userId: Int = -1,
     @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String? = null
 ) {
 
-    constructor(cost: String, orderCost: String, description: String) : this(
-        cost = try {
-            cost.toDouble()
-        } catch (e: Throwable) {
-            throw EmptyCostException()
-        },
-        orderCost = try {
-            orderCost.toDouble()
-        } catch (e: Throwable) {
-            throw EmptyOrderCostException()
-        },
-        description = description
+    constructor(cost: String, orderCost: String, description: String, userId: Int) : this(
+        cost = Companion.validateCost(cost),
+        orderCost = validateOrderCost(orderCost),
+        description = description,
+        userId = userId
     )
 
     companion object {
@@ -38,12 +34,23 @@ data class Order constructor(
         private const val ORDER_COST = "cost_order"
         private const val DESCRIPTION = "description"
         private const val FINISH_DATE = "finish_date"
+
+        private fun validateCost(cost: String): Double {
+            if (cost.isEmpty()) throw EmptyCostException()
+            return cost.toDouble()
+        }
+
+        private fun validateOrderCost(orderCost: String): Double {
+            if (orderCost.isEmpty()) throw EmptyOrderCostException()
+            return orderCost.toDouble()
+        }
     }
 
     init {
         validateCost()
         validateOrderCost()
         validateDescription()
+        validateUserId()
     }
 
     fun costFormat(): String = Format.formatPrice(cost)
@@ -65,6 +72,10 @@ data class Order constructor(
 
     private fun validateDescription() {
         if (description.isEmpty()) throw EmptyDescriptionException()
+    }
+
+    private fun validateUserId() {
+        if (userId < 1) throw BadUserIdException()
     }
 
 }

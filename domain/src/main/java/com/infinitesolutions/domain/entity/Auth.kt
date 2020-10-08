@@ -10,7 +10,7 @@ import java.util.regex.Pattern
 
 class Auth(
     @SerializedName(USER_ID) @Expose @Keep val userId: Int,
-    @SerializedName(PASSWORD) @Expose @Keep val password: String
+    @SerializedName(PASSWORD) @Expose @Keep var password: String?
 ) {
     companion object {
         const val AUTH = "AUTH"
@@ -19,14 +19,15 @@ class Auth(
     }
 
     init {
-        if (password.isBlank()) {
+        val password = this.password
+        if (password.isNullOrEmpty()) {
             throw EmptyPasswordException()
-        } else if (isPasswordValid()) {
+        } else if (isPasswordValid(password)) {
             throw InvalidPasswordException()
         }
     }
 
-    private fun isPasswordValid(): Boolean {
+    private fun isPasswordValid(password: String): Boolean {
         val pattern = Pattern.compile(PASSWORD_PATTERN)
         val matcher = pattern.matcher(password)
         return matcher.matches()

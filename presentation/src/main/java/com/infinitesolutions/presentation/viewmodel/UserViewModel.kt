@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.infinitesolutions.domain.entity.Resource
-import com.infinitesolutions.domain.entity.Token
 import com.infinitesolutions.domain.entity.User
 import com.infinitesolutions.domain.service.UserService
 import kotlinx.coroutines.CoroutineScope
@@ -18,10 +17,10 @@ class UserViewModel @ViewModelInject constructor(private val userService: UserSe
     private var loginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
     var isLoginLiveData: MutableLiveData<Resource<User>> = MutableLiveData()
 
-    fun executeLogin(user: User?) {
+    fun executeLogin(username: String, password: String) {
         CoroutineScope(IO).launch {
             try {
-                val result = login(user)
+                val result = userService.login(username, password)
                 loginLiveData.postValue(Resource(result?.user))
             } catch (e: Throwable) {
                 loginLiveData.postValue(Resource(e))
@@ -31,18 +30,11 @@ class UserViewModel @ViewModelInject constructor(private val userService: UserSe
 
     fun getLoginLiveData(): LiveData<Resource<User>> = loginLiveData
 
-    private fun login(user: User?): Token? =
-        user?.let {
-            val username = user.username
-            val password = user.auth.password
-            userService.login(username, password)
-        }
-
     fun executeIsLogin() {
         CoroutineScope(IO).launch {
             try {
                 val result = userService.isLogin()
-                isLoginLiveData.postValue(Resource(result?.user))
+                isLoginLiveData.postValue(Resource(result.user))
             } catch (e: Throwable) {
                 isLoginLiveData.postValue(Resource(e))
             }

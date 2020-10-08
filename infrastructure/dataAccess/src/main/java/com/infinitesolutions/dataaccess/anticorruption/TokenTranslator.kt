@@ -10,8 +10,10 @@ class TokenTranslator {
     private val userTranslator by lazy { UserTranslator() }
 
     fun fromDtoToDomain(tokenDto: TokenDto?): Token {
-        if (tokenDto==null) throw UserLoginException()
-        val user = tokenDto.user
-        return Token(tokenDto.key, userTranslator.fromDtoToDomain(user))
+        if (tokenDto == null) throw UserLoginException()
+        val userDto = tokenDto.user
+        val key = tokenDto.key
+        val user = userTranslator.fromDtoToDomain(userDto, key)
+        return Token(tokenDto.key, user)
     }
 }
