@@ -28,7 +28,7 @@ class OrderHistoryActivity : BaseListActivity() {
         showLoading()
         initialList()
         orderViewModel.let {
-            it.ordersActiveLiveData.observe(this, selectByUser())
+            it.ordersLiveData.observe(this, selectByUser())
             it.executeSelectInactiveByUser()
         }
     }

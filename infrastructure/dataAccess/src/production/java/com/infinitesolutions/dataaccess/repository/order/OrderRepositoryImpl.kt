@@ -38,6 +38,13 @@ class OrderRepositoryImpl @Inject constructor(
         return orderTranslator.fromDtoListToDomainList(orderResponse)
     }
 
+    override fun updateFinish(orderId: Int): List<Order> {
+        val call = orderService.updateFinish(orderId)
+        val response: Response<List<OrderDto>> = call.execute()
+        val orders = response.body() ?: throw OrdersNullException()
+        return orderTranslator.fromDtoListToDomainList(orders)
+    }
+
     private fun consumeOrderByUser(userId: Int, finish: String): List<Order> {
         val call = orderService.selectByUser(userId, finish)
         val response: Response<List<OrderDto>> = call.execute()

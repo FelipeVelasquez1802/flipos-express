@@ -27,7 +27,7 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
         cost = findViewById(R.id.etCost)
         orderCost = findViewById(R.id.etOrderCost)
         description = findViewById(R.id.etDescription)
-        orderViewModel.ordersActiveLiveData.observe(this, insert())
+        orderViewModel.ordersLiveData.observe(this, insert())
     }
 
     override fun onClick(p0: View?) {
