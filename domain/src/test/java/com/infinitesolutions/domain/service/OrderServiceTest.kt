@@ -2,6 +2,7 @@ package com.infinitesolutions.domain.service
 
 import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.domain.exception.BadUserIdException
+import com.infinitesolutions.domain.exception.badid.BadOrderIdException
 import com.infinitesolutions.domain.exception.empty.EmptyCostException
 import com.infinitesolutions.domain.exception.empty.EmptyDescriptionException
 import com.infinitesolutions.domain.exception.empty.EmptyOrderCostException
@@ -20,7 +21,7 @@ class OrderServiceTest {
     @Mock
     lateinit var orderRepository: OrderRepository
 
-    lateinit var orderService: OrderService
+    private lateinit var orderService: OrderService
 
     @Before
     fun init() {
@@ -166,6 +167,31 @@ class OrderServiceTest {
             // Then
             assertEquals(messageException, e.message)
         }
+    }
+
+    @Test
+    fun finishOrderWithBadOrderId() {
+        // Given
+        val orderId = -1
+        val messageException = "Tenemos problemas con esta orden, comunicate con soporte."
+        // When
+        try {
+            orderService.updateFinish(orderId)
+            fail()
+        } catch (e: BadOrderIdException) {
+            // Then
+            assertEquals(messageException, e.message)
+        }
+    }
+
+    @Test
+    fun finishOrderSuccess() {
+        // Given
+        val orderId = 1
+        // When
+        val orders = orderService.updateFinish(orderId)
+        // then
+        assertNotNull(orders)
     }
 
 }
