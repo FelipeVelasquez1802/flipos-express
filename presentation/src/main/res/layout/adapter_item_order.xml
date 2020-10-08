@@ -34,6 +34,11 @@
             android:text="@string/description"
             app:drawableStartCompat="@drawable/ic_baseline_list_alt_24" />
 
+        <Button
+
+            style="@style/ButtonTheme.Accept.Stroke"
+            android:text="@string/finish" />
+
     </LinearLayout>
 
 </RelativeLayout>

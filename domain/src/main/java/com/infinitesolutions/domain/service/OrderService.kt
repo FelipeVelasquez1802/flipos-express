@@ -2,6 +2,7 @@ package com.infinitesolutions.domain.service
 
 import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.domain.exception.BadUserIdException
+import com.infinitesolutions.domain.exception.badid.BadOrderIdException
 import com.infinitesolutions.domain.repository.OrderRepository
 import javax.inject.Inject
 
@@ -20,5 +21,10 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
     fun insert(cost: String, orderCost: String, description: String, userId: Int): List<Order> {
         val order = Order(cost, orderCost, description, userId)
         return orderRepository.insert(order)
+    }
+
+    fun updateFinish(orderId: Int): List<Order> {
+        if (orderId < 1) throw BadOrderIdException()
+        return orderRepository.updateFinish(orderId)
     }
 }
