@@ -4,7 +4,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import javax.inject.Singleton
 import com.infinitesolutions.dataaccess.repository.user.local.UserRepositoryImpl as UserRepositoryImplLocal
 import com.infinitesolutions.dataaccess.repository.user.remote.UserRepositoryImpl as UserRepositoryImplRemote
 import com.infinitesolutions.domain.repository.local.UserRepository as UserRepositoryLocal
@@ -15,6 +14,7 @@ import com.infinitesolutions.domain.repository.remote.UserRepository as UserRepo
 abstract class UserModule {
     @Binds
     abstract fun bindUserRepositoryRemote(userRepository: UserRepositoryImplRemote): UserRepositoryRemote
+
     @Binds
     abstract fun bindUserRepositoryLocal(userRepository: UserRepositoryImplLocal): UserRepositoryLocal
 }

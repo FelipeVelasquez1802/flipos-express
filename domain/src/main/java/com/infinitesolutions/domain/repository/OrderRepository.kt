@@ -5,5 +5,5 @@ import com.infinitesolutions.domain.entity.Order
 interface OrderRepository {
     fun selectActiveByUser(userId: Int): List<Order>
     fun selectInactiveByUser(userId: Int): List<Order>
-    fun insert(order: Order): Order
+    fun insert(order: Order): List<Order>
 }
