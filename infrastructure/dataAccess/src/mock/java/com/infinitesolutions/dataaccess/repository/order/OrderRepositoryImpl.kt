@@ -12,11 +12,11 @@ class OrderRepositoryImpl @Inject constructor() : OrderRepository {
 
     override fun selectActiveByUser(userId: Int): List<Order> {
         val orders: List<OrderDto> = listOf(
-            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z")
+            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z")
         )
         //val orders: List<OrderDto> = listOf()
         return orderTranslator.fromDtoListToDomainList(orders)
@@ -24,11 +24,11 @@ class OrderRepositoryImpl @Inject constructor() : OrderRepository {
 
     override fun selectInactiveByUser(userId: Int): List<Order> {
         val orders: List<OrderDto> = listOf(
-            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z")
+            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z")
         )
         //val orders: List<OrderDto> = listOf()
         return orderTranslator.fromDtoListToDomainList(orders)
@@ -37,11 +37,11 @@ class OrderRepositoryImpl @Inject constructor() : OrderRepository {
     override fun insert(order: Order): List<Order> {
         val orderDto = orderTranslator.fromDomainToDto(order)
         val orders: List<OrderDto> = listOf(
-            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
-            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo", "2020-08-26T02:14:48.922771Z"),
+            OrderDto(1, 1000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(2, 10000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(3, 91000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(4, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
+            OrderDto(5, 81000.0, 5000.0, "Esto es un ejemplo",1, "2020-08-26T02:14:48.922771Z"),
             orderDto
         )
         return orderTranslator.fromDtoListToDomainList(orders)

@@ -44,7 +44,7 @@ class UserServiceTest {
         // When
         val token = userService.login(username, password)
         // Then
-        Assert.assertNotNull(token)
+        assertNotNull(token)
     }
 
     @Test

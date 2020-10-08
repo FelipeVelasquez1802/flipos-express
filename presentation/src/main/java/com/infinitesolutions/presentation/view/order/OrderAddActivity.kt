@@ -27,7 +27,7 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
         cost = findViewById(R.id.etCost)
         orderCost = findViewById(R.id.etOrderCost)
         description = findViewById(R.id.etDescription)
-        orderViewModel.orderLiveData.observe(this, insert())
+        orderViewModel.ordersActiveLiveData.observe(this, insert())
     }
 
     override fun onClick(p0: View?) {
@@ -38,18 +38,13 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
 
     private fun buildConsume() {
         showLoading()
-        try {
-            val cost = this.cost.text.toString()
-            val orderCost = this.orderCost.text.toString()
-            val description = this.description.text.toString()
-            val order = Order(cost, orderCost, description)
-            orderViewModel.executeInsert(order)
-        } catch (e: Throwable) {
-            errorDriver(e)
-        }
+        val cost = this.cost.text.toString()
+        val orderCost = this.orderCost.text.toString()
+        val description = this.description.text.toString()
+        orderViewModel.executeInsert(cost, orderCost, description)
     }
 
-    private fun insert(): Observer<Resource<Order>> = Observer {
+    private fun insert(): Observer<Resource<List<Order>>> = Observer {
         if (it.isSuccessful) {
             dismissLoading()
             this.goTo(OrderActivity::class.java)
@@ -58,5 +53,4 @@ class OrderAddActivity : BaseActivity(), View.OnClickListener {
             errorDriver(error)
         }
     }
-
 }
