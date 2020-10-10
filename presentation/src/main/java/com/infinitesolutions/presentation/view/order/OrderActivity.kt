@@ -10,11 +10,16 @@ import com.infinitesolutions.domain.entity.Resource
 import com.infinitesolutions.presentation.R
 import com.infinitesolutions.presentation.tool.goTo
 import com.infinitesolutions.presentation.view.base.BaseListActivity
+import com.infinitesolutions.presentation.view.complement.ConfirmDialog
 import com.infinitesolutions.presentation.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OrderActivity : BaseListActivity(), View.OnClickListener, OrderAdapter.ActionListener {
+
+    companion object {
+        private const val TAG_ORDER_ACTIVITY = "TAG_ORDER_ACTIVITY"
+    }
 
     private val orderViewModel: OrderViewModel by lazy { ViewModelProvider(this).get(OrderViewModel::class.java) }
     private val orders: ArrayList<Order> = ArrayList()
@@ -64,7 +69,10 @@ class OrderActivity : BaseListActivity(), View.OnClickListener, OrderAdapter.Act
     }
 
     override fun finishOrder(orderId: Int) {
-        orderViewModel.executeUpdateFinish(orderId)
+        val confirmDialog: ConfirmDialog by lazy {
+            ConfirmDialog { orderViewModel.executeUpdateFinish(orderId) }
+        }
+        confirmDialog.show(supportFragmentManager, TAG_ORDER_ACTIVITY)
     }
 
 }
