@@ -8,6 +8,7 @@ import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.domain.exception.valuenull.OrdersNullException
 import com.infinitesolutions.domain.repository.OrderRepository
 import dagger.hilt.android.qualifiers.ActivityContext
+import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -33,13 +34,20 @@ class OrderRepositoryImpl @Inject constructor(
     override fun insert(order: Order): List<Order> {
         val orderDto = orderTranslator.fromDomainToDto(order)
         val call = orderService.insert(orderDto)
-        val response: Response<List<OrderDto>> = call.execute()
-        val orderResponse = response.body() ?: throw OrdersNullException()
-        return orderTranslator.fromDtoListToDomainList(orderResponse)
+        return consumeInsertAndUpdate(call)
     }
 
     override fun updateFinish(orderId: Int): List<Order> {
         val call = orderService.updateFinish(orderId)
+        return consumeInsertAndUpdate(call)
+    }
+
+    override fun updateCancel(orderId: Int): List<Order> {
+        val call = orderService.updateCancel(orderId)
+        return consumeInsertAndUpdate(call)
+    }
+
+    private fun consumeInsertAndUpdate(call: Call<List<OrderDto>>): List<Order> {
         val response: Response<List<OrderDto>> = call.execute()
         val orders = response.body() ?: throw OrdersNullException()
         return orderTranslator.fromDtoListToDomainList(orders)

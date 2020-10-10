@@ -3,7 +3,10 @@ package com.infinitesolutions.dataaccess.repository.order
 import com.infinitesolutions.dataaccess.Constant.Companion.API_V
 import com.infinitesolutions.dataaccess.dto.OrderDto
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface OrderService {
     companion object {
@@ -14,6 +17,8 @@ interface OrderService {
         private const val FINISH_ORDER = "finish_order/"
         private const val ORDER_ID = "order_id"
         private const val UPDATE_FINISH = "${ORDER}$FINISH_ORDER{$ORDER_ID}/"
+        private const val CANCEL_ORDER = "cancel_order/"
+        private const val UPDATE_CANCEL = "${ORDER}$CANCEL_ORDER{$ORDER_ID}/"
     }
 
     @GET(BY_USER)
@@ -24,5 +29,8 @@ interface OrderService {
 
     @GET(UPDATE_FINISH)
     fun updateFinish(@Path(ORDER_ID) orderId: Int): Call<List<OrderDto>>
+
+    @GET(UPDATE_CANCEL)
+    fun updateCancel(@Path(ORDER_ID) orderId: Int): Call<List<OrderDto>>
 
 }

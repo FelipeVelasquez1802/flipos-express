@@ -64,4 +64,15 @@ class OrderViewModel @ViewModelInject constructor(
             }
         }
     }
+
+    fun executeUpdateCancel(orderId: Int) {
+        CoroutineScope(IO).launch {
+            try {
+                val result = orderService.updateCancel(orderId)
+                ordersLiveData.postValue(Resource(result))
+            } catch (e: Throwable) {
+                ordersLiveData.postValue(Resource(e))
+            }
+        }
+    }
 }

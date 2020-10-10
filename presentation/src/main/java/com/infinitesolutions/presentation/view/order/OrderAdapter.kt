@@ -37,7 +37,7 @@ class OrderAdapter constructor(
             uiString.replaceValue(R.string.order_cost_message, order.orderCostFormat())
         holder.description.text = order.description
         holder.finish.setOnClickListener { listener.finishOrder(order.id) }
-        holder.moreOption.setOnClickListener { showPopup(it) }
+        holder.moreOption.setOnClickListener { showPopup(it, order.id) }
     }
 
     override fun getItemCount(): Int = orders.size
@@ -50,19 +50,19 @@ class OrderAdapter constructor(
         this.notifyDataSetChanged()
     }
 
-    private fun showPopup(view: View) {
+    private fun showPopup(view: View, orderId: Int) {
         val popup = PopupMenu(context, view)
         popup.let {
             it.menuInflater.inflate(R.menu.menu_action_item_order, popup.menu)
-            it.setOnMenuItemClickListener { menuItem -> typeOption(menuItem.itemId) }
+            it.setOnMenuItemClickListener { menuItem -> typeOption(menuItem.itemId, orderId) }
             it.show()
         }
     }
 
-    private fun typeOption(itemId: Int): Boolean {
+    private fun typeOption(itemId: Int, orderId: Int): Boolean {
         return when (itemId) {
             R.id.itCancel -> {
-                Toast.makeText(context, "Cancel order", Toast.LENGTH_LONG).show()
+                listener.cancelOrder(orderId)
                 true
             }
             R.id.itEdit -> {
@@ -75,5 +75,6 @@ class OrderAdapter constructor(
 
     interface ActionListener {
         fun finishOrder(orderId: Int)
+        fun cancelOrder(orderId: Int)
     }
 }

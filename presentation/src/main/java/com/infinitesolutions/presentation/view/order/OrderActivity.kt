@@ -1,7 +1,6 @@
 package com.infinitesolutions.presentation.view.order
 
 import android.view.View
-import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,6 +71,13 @@ class OrderActivity : BaseListActivity(), View.OnClickListener, OrderAdapter.Act
     override fun finishOrder(orderId: Int) {
         val confirmDialog: ConfirmDialog by lazy {
             ConfirmDialog { orderViewModel.executeUpdateFinish(orderId) }
+        }
+        confirmDialog.show(supportFragmentManager, TAG_ORDER_ACTIVITY)
+    }
+
+    override fun cancelOrder(orderId: Int) {
+        val confirmDialog: ConfirmDialog by lazy {
+            ConfirmDialog { orderViewModel.executeUpdateCancel(orderId) }
         }
         confirmDialog.show(supportFragmentManager, TAG_ORDER_ACTIVITY)
     }
