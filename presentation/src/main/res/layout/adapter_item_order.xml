@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         style="@style/PanelTheme.Form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,16 +13,26 @@
         <TextView
             android:id="@+id/tvCost"
             style="@style/TextViewTheme.Text.Black.h4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/ivMoreOption"
             android:text="@string/cost_message"
             app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24" />
+
+        <ImageView
+            android:id="@+id/ivMoreOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            android:contentDescription="@string/contentDescription" />
 
         <TextView
             android:id="@+id/tvOrderCost"
             style="@style/TextViewTheme.Text.Black.h4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvCost"
             android:text="@string/order_cost_message"
             app:drawableStartCompat="@drawable/ic_baseline_monetization_on_24" />
 
@@ -31,14 +41,16 @@
             style="@style/TextViewTheme.Text.Black.h4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvOrderCost"
             android:text="@string/description"
             app:drawableStartCompat="@drawable/ic_baseline_list_alt_24" />
 
         <Button
             android:id="@+id/btFinish"
             style="@style/ButtonTheme.Accept.Stroke"
+            android:layout_below="@id/tvDescription"
             android:text="@string/finish" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
