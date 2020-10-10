@@ -65,6 +65,10 @@ class OrderAdapter constructor(
                 Toast.makeText(context, "Cancel order", Toast.LENGTH_LONG).show()
                 true
             }
+            R.id.itEdit -> {
+                Toast.makeText(context, "Edit order", Toast.LENGTH_LONG).show()
+                true
+            }
             else -> false
         }
     }
