@@ -29,4 +29,8 @@
     <string name="total_price">Este domicilio es de {}</string>
     <string name="date_order">Este domicilio fue el {}</string>
     <string name="title_order_inactive">Historial de domicilios</string>
+    <string name="title_confirm_dialog">¡Hola!</string>
+    <string name="message_confirm_dialog">¿Estas seguro de querer hacer esto?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
 </resources>
