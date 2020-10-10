@@ -27,4 +27,9 @@ class OrderService @Inject constructor(private val orderRepository: OrderReposit
         if (orderId < 1) throw BadOrderIdException()
         return orderRepository.updateFinish(orderId)
     }
+
+    fun updateCancel(orderId: Int): List<Order> {
+        if (orderId < 1) throw BadOrderIdException()
+        return orderRepository.updateCancel(orderId)
+    }
 }

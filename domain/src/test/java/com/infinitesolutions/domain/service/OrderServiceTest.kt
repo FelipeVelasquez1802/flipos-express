@@ -194,4 +194,28 @@ class OrderServiceTest {
         assertNotNull(orders)
     }
 
+    @Test
+    fun cancelOrderWithBadOrderId() {
+        // Given
+        val orderId = -1
+        val messageException = "Tenemos problemas con esta orden, comunicate con soporte."
+        // When
+        try {
+            orderService.updateCancel(orderId)
+            fail()
+        } catch (e: BadOrderIdException) {
+            // Then
+            assertEquals(messageException, e.message)
+        }
+    }
+
+    @Test
+    fun cancelOrderSuccess() {
+        // Given
+        val orderId = 1
+        // When
+        val orders = orderService.updateCancel(orderId)
+        assertNotNull(orders)
+    }
+
 }

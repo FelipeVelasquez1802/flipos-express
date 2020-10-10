@@ -37,4 +37,9 @@ class OrderRepositoryImpl @Inject constructor() : OrderRepository {
         val orders = ORDES.filter { it.id != orderId }
         return orderTranslator.fromDtoListToDomainList(orders)
     }
+
+    override fun updateCancel(orderId: Int): List<Order> {
+        val orders = ORDES.filter { it.id != orderId }
+        return orderTranslator.fromDtoListToDomainList(orders)
+    }
 }

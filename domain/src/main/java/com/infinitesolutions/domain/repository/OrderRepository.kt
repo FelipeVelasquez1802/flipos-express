@@ -7,4 +7,5 @@ interface OrderRepository {
     fun selectInactiveByUser(userId: Int): List<Order>
     fun insert(order: Order): List<Order>
     fun updateFinish(orderId: Int): List<Order>
+    fun updateCancel(orderId: Int): List<Order>
 }
