@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.infinitesolutions.domain.entity.Order
 import com.infinitesolutions.presentation.R
@@ -24,6 +23,7 @@ class OrderAdapter constructor(
         val orderCost: TextView = itemView.findViewById(R.id.tvOrderCost)
         val description: TextView = itemView.findViewById(R.id.tvDescription)
         val finish: Button = itemView.findViewById(R.id.btFinish)
+        val moreOption: ImageView = itemView.findViewById(R.id.ivMoreOption)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder =
@@ -37,6 +37,7 @@ class OrderAdapter constructor(
             uiString.replaceValue(R.string.order_cost_message, order.orderCostFormat())
         holder.description.text = order.description
         holder.finish.setOnClickListener { listener.finishOrder(order.id) }
+        holder.moreOption.setOnClickListener { showPopup(it) }
     }
 
     override fun getItemCount(): Int = orders.size
@@ -47,6 +48,25 @@ class OrderAdapter constructor(
             it.addAll(orders)
         }
         this.notifyDataSetChanged()
+    }
+
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(context, view)
+        popup.let {
+            it.menuInflater.inflate(R.menu.menu_action_item_order, popup.menu)
+            it.setOnMenuItemClickListener { menuItem -> typeOption(menuItem.itemId) }
+            it.show()
+        }
+    }
+
+    private fun typeOption(itemId: Int): Boolean {
+        return when (itemId) {
+            R.id.itCancel -> {
+                Toast.makeText(context, "Cancel order", Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> false
+        }
     }
 
     interface ActionListener {
