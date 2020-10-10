@@ -54,19 +54,19 @@ class OrderAdapter constructor(
         val popup = PopupMenu(context, view)
         popup.let {
             it.menuInflater.inflate(R.menu.menu_action_item_order, popup.menu)
-            it.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.itCancel -> {
-                        Toast.makeText(context, "Cancel order", Toast.LENGTH_LONG).show()
-                        true
-                    }
-                    else -> false
-                }
-
-            }
+            it.setOnMenuItemClickListener { menuItem -> typeOption(menuItem.itemId) }
             it.show()
         }
+    }
 
+    private fun typeOption(itemId: Int): Boolean {
+        return when (itemId) {
+            R.id.itCancel -> {
+                Toast.makeText(context, "Cancel order", Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> false
+        }
     }
 
     interface ActionListener {
