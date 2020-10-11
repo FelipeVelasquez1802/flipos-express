@@ -36,4 +36,5 @@
     <string name="contentDescription">Descripción de la imagen</string>
     <string name="cancel_order">Cancelar domicilio</string>
     <string name="editl_order">Editar domicilio</string>
+    <string name="title_order_type">Título del tipo de domicilio</string>
 </resources>

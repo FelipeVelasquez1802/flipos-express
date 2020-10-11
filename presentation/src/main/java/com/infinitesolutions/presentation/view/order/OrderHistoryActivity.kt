@@ -19,8 +19,8 @@ class OrderHistoryActivity : BaseListActivity() {
     private val orders: ArrayList<Order> = ArrayList()
 
     private lateinit var listEmpty: View
-    private lateinit var list: RecyclerView
-    private lateinit var adapter: OrderHistoryAdapter
+    private lateinit var typeList: RecyclerView
+    private lateinit var adapterType: OrderTypeAdapter
 
     override fun layout(): Int = R.layout.activity_history_order
 
@@ -35,19 +35,17 @@ class OrderHistoryActivity : BaseListActivity() {
 
     private fun initialList() {
         listEmpty = findViewById(R.id.listEmpty)
-        adapter = OrderHistoryAdapter(this, orders)
-        list = findViewById(R.id.rvList)
-        list.let {
+        typeList = findViewById(R.id.rvTypeList)
+        typeList.let {
             it.layoutManager = LinearLayoutManager(this)
-            it.adapter = adapter
         }
     }
 
     private fun selectByUser(): Observer<Resource<List<Order>>> = Observer {
         if (it.isSuccessful) {
-            val orders = it.data()
-            showAndHide(orders.isEmpty(), list, listEmpty)
-            adapter.addAll(orders)
+            val orders = it.data() as ArrayList
+            showAndHide(orders.isEmpty(), typeList, listEmpty)
+            typeList.adapter = OrderTypeAdapter(this, orders)
             dismissLoading()
         } else {
             val error = it.error()

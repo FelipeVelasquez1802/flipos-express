@@ -19,7 +19,9 @@ data class Order constructor(
     @SerializedName(ORDER_COST) @Expose @Keep var orderCost: Double,
     @SerializedName(DESCRIPTION) @Expose @Keep val description: String,
     @SerializedName(USER) @Expose @Keep var userId: Int = -1,
-    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String? = null
+    @SerializedName(FINISH_DATE) @Expose @Keep val finishDate: String? = null,
+    @SerializedName(FINISH) @Expose @Keep val finish: Boolean = false,
+    @SerializedName(CANCEL) @Expose @Keep val cancel: Boolean = false
 ) {
 
     constructor(cost: String, orderCost: String, description: String, userId: Int) : this(
@@ -34,6 +36,8 @@ data class Order constructor(
         private const val ORDER_COST = "cost_order"
         private const val DESCRIPTION = "description"
         private const val FINISH_DATE = "finish_date"
+        private const val FINISH = "finish"
+        private const val CANCEL = "cancel"
 
         private fun validateCost(cost: String): Double {
             if (cost.isEmpty()) throw EmptyCostException()
